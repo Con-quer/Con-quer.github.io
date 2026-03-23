@@ -17,19 +17,21 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="asd">
+    <meta name="description" content="OpenCV是计算机视觉领域的工业级标准工具，覆盖图像 &#x2F; 视频处理、特征提取、目标检测、深度学习、三维视觉所有核心场景。 1.基本运用读取本地图像、显示图像、保存处理后的图像，是 OpenCV 的入口操作，用于加载素材、保存结果、可视化调试。    基础函数 功能    cv2.imread(path, flag) 读取图像 （参数2：1&#x3D;彩色，0&#x3D;灰度，-1&amp;#x">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenCV运用的回顾">
 <meta property="og:url" content="https://con-quer.github.io/2026/03/22/OpenCV%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%94%A8/index.html">
 <meta property="og:site_name" content="Conquer的个人博客">
-<meta property="og:description" content="asd">
+<meta property="og:description" content="OpenCV是计算机视觉领域的工业级标准工具，覆盖图像 &#x2F; 视频处理、特征提取、目标检测、深度学习、三维视觉所有核心场景。 1.基本运用读取本地图像、显示图像、保存处理后的图像，是 OpenCV 的入口操作，用于加载素材、保存结果、可视化调试。    基础函数 功能    cv2.imread(path, flag) 读取图像 （参数2：1&#x3D;彩色，0&#x3D;灰度，-1&amp;#x">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://con-quer.github.io/images/image.png">
 <meta property="article:published_time" content="2026-03-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-23T07:39:18.799Z">
+<meta property="article:modified_time" content="2026-03-23T13:40:54.110Z">
 <meta property="article:author" content="cOnQuer">
 <meta property="article:tag" content="OpenCV">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://con-quer.github.io/images/image.png">
     <link rel="alternate" href="/atom.xml" title="Conquer的个人博客" type="application/atom+xml">
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -228,7 +230,59 @@
     <div class="hr-line"></div>
     
     <div class="e-content article-entry" itemprop="articleBody">
-        <p>asd</p>
+        <p>OpenCV是计算机视觉领域的工业级标准工具，覆盖图像 &#x2F; 视频处理、特征提取、目标检测、深度学习、三维视觉所有核心场景。</p>
+<p><strong>1.基本运用</strong><br>读取本地图像、显示图像、保存处理后的图像，是 OpenCV 的入口操作，用于加载素材、保存结果、可视化调试。</p>
+<table>
+<thead>
+<tr>
+<th>基础函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cv2.imread(path, flag)</td>
+<td>读取图像 （参数2：1&#x3D;彩色，0&#x3D;灰度，-1&#x3D;带透明通道）</td>
+</tr>
+<tr>
+<td>cv2.imshow(name, img)</td>
+<td>显示图像（必须配合 waitKey() 使用）</td>
+</tr>
+<tr>
+<td>cv2.imwrite(path, img)</td>
+<td>保存图像（支持 jpg&#x2F;png&#x2F;bmp）</td>
+</tr>
+<tr>
+<td>cv2.waitKey(delay)</td>
+<td>等待按键（0 &#x3D; 无限等待，数字 &#x3D; 延时毫秒）</td>
+</tr>
+<tr>
+<td>cv2.destroyAllWindows()</td>
+<td>关闭所有窗口 ，释放资源</td>
+</tr>
+</tbody></table>
+<p><strong>2.图像处理</strong><br>（1）图像基础属性<br>获取图像尺寸、裁剪图像、缩放 &#x2F; 旋转 &#x2F; 翻转、转换色彩空间（视觉任务最核心预处理）。</p>
+<pre><code>h, w, ch = img.shape #获取高度，宽度，通道数
+size = img.size      #获取像素总数即h*w*ch
+dtype = img.dtype    #获取数据类型
+</code></pre>
+<p>（2）色彩空间转换<br>OpenCV 默认是 BGR，而主流工具是 RGB，灰度图用 GRAY，颜色识别用 HSV：</p>
+<pre><code>img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+</code></pre>
+<p>（3）几何变换</p>
+<pre><code>crop = img[100:300, 200:400]  #切片：[y起始:y结束, x起始:x结束]
+
+resize = cv2.resize(img, (300, 200)) #2. 缩放（宽, 高）
+
+# 3. 旋转
+M = cv2.getRotationMatrix2D((w//2, h//2), 45, 1)  # 中心、角度、缩放比例
+rotate = cv2.warpAffine(img, M, (w, h))
+
+# 4. 翻转（0=上下翻转，1=左右翻转，-1=对角翻转）
+flip = cv2.flip(img, 1)
+</code></pre>
+<p><img src="/images/image.png" alt="alt text"></p>
 
     </div>
     <footer class="article-footer">
@@ -271,10 +325,10 @@
       </div>
       <div>
         <span class="icon-brush"></span>
-        1k
+        1.4k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:06
+        00:07
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -422,9 +476,9 @@
           url: "https://con-quer.github.io/2026/03/22/OpenCV%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%94%A8/",
           excerpt: "",
           description: "",
-          stripContent: "asd ",
+          stripContent: "OpenCV是计算机视觉领域的工业级标准工具，覆盖图像 &amp;#x2F; 视频处理、特征提取、目标检测、深度学习、三维视觉所有核心场景。 1.基本运用读取本地图像、显示图像、保存处理后的图像，是 OpenCV 的入口操作，用于加载素材、保存结果、可视化调试。    基础函数 功能    cv2.imread(path, flag) 读取图像 （参数2：1&amp;#x3D;彩色，0&amp;#x3D;灰度，-1&amp;#x3D;带透明通道）   cv2.imshow(name, img) 显示图像（必须配合 waitKe",
           date: "Sun Mar 22 2026 00:00:00 GMT+0800",
-          updated: "Mon Mar 23 2026 15:39:18 GMT+0800",
+          updated: "Mon Mar 23 2026 21:40:54 GMT+0800",
           cover: "/images/banner.webp",
         };
       </script>
