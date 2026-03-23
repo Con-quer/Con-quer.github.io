@@ -17,15 +17,15 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="基于Open-CV和YOLO11的实时人脸识别 我将该项目分为三个板块执行：get_picture.py—-获取图片train.py———-训练模型start.py———-开始识别 获取图片需要导入的库如下： import cv2 import os import tkinter as tk from tkinter import simpledialog import shutil">
+    <meta name="description" content="该项目基于OpenCV内置的目标检测功能和YOLO的人脸识别功能我将以机器学习的基本的三个环节，分板块执行：get_picture.py—-准备数据train.py———-训练模型start.py———-开始识别 获取图片需要导入的库如下： import cv2 import os import tkinter as tk from tkinter import simpledialog impo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于OpenCV与YOLO11的实时人脸识别项目">
 <meta property="og:url" content="https://con-quer.github.io/2026/03/22/%E5%9F%BA%E4%BA%8EOpen-CV%E5%92%8CYOLO11%E7%9A%84%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/index.html">
 <meta property="og:site_name" content="Conquer&#39;s">
-<meta property="og:description" content="基于Open-CV和YOLO11的实时人脸识别 我将该项目分为三个板块执行：get_picture.py—-获取图片train.py———-训练模型start.py———-开始识别 获取图片需要导入的库如下： import cv2 import os import tkinter as tk from tkinter import simpledialog import shutil">
+<meta property="og:description" content="该项目基于OpenCV内置的目标检测功能和YOLO的人脸识别功能我将以机器学习的基本的三个环节，分板块执行：get_picture.py—-准备数据train.py———-训练模型start.py———-开始识别 获取图片需要导入的库如下： import cv2 import os import tkinter as tk from tkinter import simpledialog impo">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-23T05:27:16.999Z">
+<meta property="article:modified_time" content="2026-03-23T07:10:06.298Z">
 <meta property="article:author" content="cOnQuer">
 <meta property="article:tag" content="OpenCV">
 <meta property="article:tag" content="YOLO11">
@@ -229,8 +229,7 @@
     <div class="hr-line"></div>
     
     <div class="e-content article-entry" itemprop="articleBody">
-        <p>基于Open-CV和YOLO11的实时人脸识别</p>
-<p>我将该项目分为三个板块执行：<br>get_picture.py—-获取图片<br>train.py———-训练模型<br>start.py———-开始识别</p>
+        <p>该项目基于OpenCV内置的目标检测功能和YOLO的人脸识别功能<br>我将以机器学习的基本的三个环节，分板块执行：<br>get_picture.py—-准备数据<br>train.py———-训练模型<br>start.py———-开始识别</p>
 <p><strong>获取图片</strong><br>需要导入的库如下：</p>
 <pre><code>import cv2
 import os
@@ -238,6 +237,152 @@ import tkinter as tk
 from tkinter import simpledialog
 import shutil
 </code></pre>
+<p>定义camera：打开摄像头并初始化，分辨率以一般笔记本的标准 1280*720。</p>
+<pre><code>def camera():
+    cap = cv2.VideoCapture(0)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+
+    if not cap.isOpened():
+        print(&quot;can&#39;t open the webcam&quot;)
+        cap.release()
+        exit()
+    return cap
+</code></pre>
+<p>定义path：创建所需路径和文件夹，train为训练集图片的位置，val为验证集图片的位置</p>
+<pre><code>def path():
+    root_dir = &quot;dataset&quot;
+    face_train = os.path.join(root_dir, &quot;train&quot;)
+    face_val = os.path.join(root_dir, &quot;val&quot;)
+    os.makedirs(face_train, exist_ok=True)
+    os.makedirs(face_val, exist_ok=True)
+    return face_train,face_val
+</code></pre>
+<p>定义name：弹出窗口输入个人信息，即图片的标注（输入后才能继续，避免出现文件路径混乱）</p>
+<pre><code>def name(face_train):
+    root = tk.Tk()
+    root.withdraw()
+    user_name = &quot;&quot;
+    while True:
+        user_name = simpledialog.askstring(&quot;命名&quot;, &quot;请输入姓名&quot;)
+        if user_name is None:
+            exit()
+        elif user_name.strip() == &quot;&quot;:
+            print(&quot;请输入姓名&quot;)
+            continue
+        else:
+            user_name = user_name.strip()
+            break
+
+    user_face_dir = os.path.join(face_train, user_name)
+    os.makedirs(user_face_dir, exist_ok=True)
+    return user_face_dir,user_name
+</code></pre>
+<p>定义detect：按下s保存摄像头图片后，使用OpenCV内置目标检测器CascadeClassifier实现人脸目标检测，并裁剪出人脸的图片。根据裁剪位置信息，先复制摄像头原图片文件再裁剪，可以避免rectangle绘制的识别框被裁入，降低杂乱数据干扰。</p>
+<pre><code>def detect(cap,user_face_dir):
+    face_counter = 0
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + &#39;haarcascade_frontalface_default.xml&#39;)
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        #人脸检测
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+
+        origin_frame=frame.copy()     #防止绿框被截取
+
+        #绘制人脸框
+        for (x, y, w, h) in faces:
+            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+        cv2.imshow(&#39;Webcam&#39;, frame)
+        k = cv2.waitKey(1)
+
+        # ESC退出
+        if k % 256 == 27:
+            print(&quot;Escape hit closing&quot;)
+            break
+
+        elif k % 256 == ord(&#39;s&#39;):      #按s保存人脸裁剪图（最好不少与20张）
+            if len(faces) &gt; 0:
+                x, y, w, h = faces[0]
+                face_crop = origin_frame[y:y+h, x:x+w]
+                face_name = os.path.join(user_face_dir, f&quot;face_{face_counter}.png&quot;)
+                cv2.imwrite(face_name, face_crop)
+                print(f&quot;人脸保存: {face_name}&quot;)
+                face_counter += 1
+</code></pre>
+<p>定义split：数据分类函数，将保存在train里面的图片文件，按比例转移到val文件夹。比例可根据数据量具体更改，此处用0.2。</p>
+<pre><code>def split(face_train,face_val, user_name):
+    current_train = os.path.join(face_train, user_name)
+    current_val = os.path.join(face_val, user_name)
+    os.makedirs(current_val, exist_ok=True)
+
+    val_images = [f for f in os.listdir(current_val) if f.endswith((&#39;png&#39;,&#39;jpg&#39;,&#39;jpeg&#39;))]
+
+    if len(val_images) &gt; 0:
+        return
+
+    img_list = [f for f in os.listdir(current_train) if f.endswith((&#39;png&#39;,&#39;jpg&#39;,&#39;jpeg&#39;))]
+    total = len(img_list)
+
+    if total == 0:
+        return
+
+    split_num = max(1, int(total * 0.2)) #比例为0.2
+    for img in img_list[:split_num]:
+        shutil.move(os.path.join(current_train, img), os.path.join(current_val, img))
+</code></pre>
+<p>最后使用release和destroyAllWindows函数释放内存，至此数据准备完毕。</p>
+<pre><code>cap=camera()
+face_train,face_val=path()
+user_face_dir,user_name = name(face_train)
+detect(cap,user_face_dir)
+split(face_train,face_val,user_name)
+cap.release()
+cv2.destroyAllWindows()
+</code></pre>
+<p><strong>开始训练</strong><br>使用适合人脸检测的yolo11n-cls模型训练，根据电脑处理器选择device，此处使用cpu。<br>训练完成后就会将结果保存至run&#x2F;runs&#x2F;classify&#x2F;face_recognize&#x2F;weights</p>
+<pre><code>from ultralytics import YOLO
+
+model = YOLO(&quot;yolo11n-cls.pt&quot;)
+
+model.train(
+    data=&quot;./dataset&quot;,    
+    epochs=30,
+    imgsz=224,
+    batch=4, 
+    device=&quot;cpu&quot;,
+    name=&quot;face_recognize&quot;,
+    val=True
+    )    
+</code></pre>
+<p><strong>开始识别</strong><br>模型选择best.pt文件，打开摄像头开始人脸识别，识别出的分数会打印在窗口左上角。</p>
+<pre><code>from ultralytics import YOLO
+import cv2
+import os
+
+model = YOLO(&quot;runs/classify/face_recognize/weights/best.pt&quot;)
+
+cap = cv2.VideoCapture(0)
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    results = model(frame)
+    cv2.imshow(&quot;人脸识别&quot;, results[0].plot())
+
+    if cv2.waitKey(1) == 27:
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+</code></pre>
+<p>  <strong>总结</strong><br>本项目基于OpenCV与YOLO实现基础视觉应用，代码体量较小。目前项目仍存在可优化空间，例如摄像头采集图像清晰度不足、数据处理流程不够精细等问题。但通过本次实战，我对两项技术的理解与应用能力得到了进一步提升。</p>
 
     </div>
     <footer class="article-footer">
@@ -280,10 +425,10 @@ import shutil
       </div>
       <div>
         <span class="icon-brush"></span>
-        80
+        1.1k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:02
+        00:06
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -431,9 +576,9 @@ import shutil
           url: "https://con-quer.github.io/2026/03/22/%E5%9F%BA%E4%BA%8EOpen-CV%E5%92%8CYOLO11%E7%9A%84%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/",
           excerpt: "",
           description: "",
-          stripContent: "基于Open-CV和YOLO11的实时人脸识别 我将该项目分为三个板块执行：get_picture.py—-获取图片train.py———-训练模型start.py———-开始识别 获取图片需要导入的库如下： import cv2 import os import tkinter as tk from tkinter import simpledialog import shutil  ",
+          stripContent: "该项目基于OpenCV内置的目标检测功能和YOLO的人脸识别功能我将以机器学习的基本的三个环节，分板块执行：get_picture.py—-准备数据train.py———-训练模型start.py———-开始识别 获取图片需要导入的库如下： import cv2 import os import tkinter as tk from tkinter import simpledialog import shutil  定义camera：打开摄像头并初始化，分辨率以一般笔记本的标准 1280*72",
           date: "Sun Mar 22 2026 00:00:00 GMT+0800",
-          updated: "Mon Mar 23 2026 13:27:16 GMT+0800",
+          updated: "Mon Mar 23 2026 15:10:06 GMT+0800",
           cover: "/images/banner.webp",
         };
       </script>

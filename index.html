@@ -209,13 +209,12 @@
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2026-03-22</span>
-        <span><span class="icon-pencil"></span>70 字</span>
-        <span><span class="icon-clock"></span>1 分钟</span>
+        <span><span class="icon-pencil"></span>1k 字</span>
+        <span><span class="icon-clock"></span>5 分钟</span>
       </div>
       <h2 class="post-title">基于OpenCV与YOLO11的实时人脸识别项目</h2>
       <article class="post-article">
-          基于Open-CV和YOLO11的实时人脸识别
-我将该项目分为三个板块执行：get_picture.py—-获取图片train.py———-训练模型start.py———-开始识别
+          该项目基于OpenCV内置的目标检测功能和YOLO的人脸识别功能我将以机器学习的基本的三个环节，分板块执行：get_picture.py—-准备数据train.py———-训练模型start.py———-开始识别
 获取图片需要导入的库如下：
 import cv2
 import os
@@ -223,7 +222,10 @@ import tkinter as tk
 from tkinter import simpledialog
 import shutil
 
-
+定义camera：打开摄像头并初始化，分辨率以一般笔记本的标准 1280*720。
+def camera():
+    cap = cv2.VideoCapture(0)
+   
       </article>
     </div>
   </div>
@@ -268,10 +270,10 @@ import shutil
       </div>
       <div>
         <span class="icon-brush"></span>
-        80
+        1.1k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:02
+        00:06
       </div>
       <div>
         <span class="icon-eye"></span>
