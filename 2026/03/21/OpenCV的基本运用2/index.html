@@ -25,7 +25,7 @@
 <meta property="og:description" content="1. 阈值处理 + 滤波去噪常用于文档扫描、车牌识别、零件检测、图像分割等需要简化图像的任务。 阈值处理：将图像转为黑白二值图，分割前景与背景；滤波去噪：去除图像噪声，平滑图像，提升后续算法精度。 （1）阈值处理（二值化） gray &#x3D; cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)   ret, binary &#x3D; cv2.threshold(gray, 127, 25">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-20T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-23T15:50:10.762Z">
+<meta property="article:modified_time" content="2026-03-24T07:51:44.238Z">
 <meta property="article:author" content="cOnQuer">
 <meta property="article:tag" content="OpenCV">
 <meta property="article:tag" content="计算机视觉">
@@ -219,7 +219,7 @@
       <div class="article-date">
   <span class="article-date-link icon-calendar" data-aos="zoom-in">
     <time datetime="2026-03-20T16:00:00.000Z" itemprop="datePublished">2026-03-21</time>
-    <time style="display: none;" id="post-update-time">2026-03-23</time>
+    <time style="display: none;" id="post-update-time">2026-03-24</time>
   </span>
 </div>
 
@@ -271,12 +271,89 @@ ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY) #固定阈值二�
 kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3,3))  # 卷积核
 
 erode = cv2.erode(binary, kernel) #腐蚀：缩小白色区域（去小噪点）
-# 膨胀：扩大白色区域（补缺口）
-dilate = cv2.dilate(binary, kernel)
-# 开运算：先腐蚀后膨胀（去外部噪点）
-open = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel)
-# 闭运算：先膨胀后腐蚀（补内部孔洞）
-close = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
+
+dilate = cv2.dilate(binary, kernel) #膨胀：扩大白色区域（补缺口）
+
+open = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel) #开运算：先腐蚀后膨胀（去外部噪点）
+
+close = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel) #闭运算：先膨胀后腐蚀（补内部孔洞）
+</code></pre>
+<p><strong>3. 轮廓检测与分析</strong></p>
+<p>查找图像中物体的轮廓，计算轮廓的面积、周长、外接矩形，实现形状识别、物体计数、尺寸测量。</p>
+<pre><code>gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #处理轮廓最好用灰度图
+
+ret, binary = cv2.threshold(gray, 127, 255, 0) #二值化
+
+contours, hierarchy = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #查找轮廓
+
+cv2.drawContours(img, contours, -1, (0,255,0), 2) #绘制轮廓
+
+# 轮廓分析（单个轮廓）
+cnt = contours[0]
+area = cv2.contourArea(cnt)  # 面积
+perimeter = cv2.arcLength(cnt, True)  # 周长
+x, y, w, h = cv2.boundingRect(cnt)  # 外接矩形
+</code></pre>
+<p><strong>4. 视频及摄像头实时处理</strong></p>
+<p>读取本地视频、调用电脑摄像头，逐帧处理视频，保存处理后的视频。（视频本质 &#x3D; 连续的图像帧。）</p>
+<pre><code>cap = cv2.VideoCapture(0) #读取（0为默认摄像头，路径则为本地视频）
+
+fourcc = cv2.VideoWriter_fourcc(*&#39;XVID&#39;)  #保存视频
+out = cv2.VideoWriter(&#39;output.avi&#39;, fourcc, 20.0, (640,480))
+
+while True:
+    # 逐帧读取
+    ret, frame = cap.read()
+    if not ret:  # ret——&gt;布尔值
+        break
+
+    # 帧处理（例：翻转）
+    frame = cv2.flip(frame, 1)
+    # 保存帧
+    out.write(frame)
+    # 显示
+    cv2.imshow(&#39;frame&#39;, frame)
+
+    # 按q退出
+    if cv2.waitKey(1) &amp; 0xFF == ord(&#39;q&#39;):
+        break
+
+# 释放资源
+cap.release()
+out.release()
+cv2.destroyAllWindows()
+</code></pre>
+<p><strong>5. 图像特征检测与匹配</strong></p>
+<p>提取图像关键点 &#x2F; 特征描述子，实现图像匹配、全景拼接、目标追踪、图像检索。<br>以ORB为例：</p>
+<pre><code>orb = cv2.ORB_create() #初始化ORB检测器
+
+kp1, des1 = orb.detectAndCompute(img1, None) #查找关键点和描述子
+kp2, des2 = orb.detectAndCompute(img2, None)
+
+bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+matches = bf.match(des1, des2) #暴力匹配
+
+res = cv2.drawMatches(img1, kp1, img2, kp2, matches, None, flags=2) #绘制匹配结果
+</code></pre>
+<p><strong>6. 传统目标检测</strong></p>
+<p>无需训练模型，直接调用 OpenCV 内置分类器，实现人脸、眼睛、行人检测。</p>
+<pre><code>face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + &#39;haarcascade_frontalface_default.xml&#39;) #加载人脸检测器
+
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #不需要彩图
+
+faces = face_cascade.detectMultiScale(gray, 1.1, 4) #检测人脸
+
+for (x,y,w,h) in faces: #绘制检测框
+    cv2.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 2)
+</code></pre>
+<p><strong>7. OpenCV-DNN深度学习模块</strong></p>
+<p>OpenCV 内置DNN（深度神经网络）模块，直接加载预训练深度学习模型，支持YOLO、SSD、Faster-RCNN、MobileNet、TensorFlow&#x2F;PyTorch预训练模型，实现高精度目标检测、图像分类、语义分割，无需依赖深度学习框架，需手动下载模型。</p>
+<pre><code>net = cv2.dnn.readNet(&quot;yolov3.weights&quot;, &quot;yolov3.cfg&quot;) #加载YOLOv3模型
+
+blob = cv2.dnn.blobFromImage(img, 1/255, (416,416), (0,0,0), swapRB=True, crop=False) #图像转blob（模型输入格式）
+net.setInput(blob)
+
+outs = net.forward(net.getUnconnectedOutLayersNames()) #前向推理
 </code></pre>
 
     </div>
@@ -328,10 +405,10 @@ close = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
       </div>
       <div>
         <span class="icon-brush"></span>
-        2k
+        2.7k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:10
+        00:14
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -481,7 +558,7 @@ close = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
           description: "",
           stripContent: "1. 阈值处理 + 滤波去噪常用于文档扫描、车牌识别、零件检测、图像分割等需要简化图像的任务。 阈值处理：将图像转为黑白二值图，分割前景与背景；滤波去噪：去除图像噪声，平滑图像，提升后续算法精度。 （1）阈值处理（二值化） gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)   ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY) #固定阈值二值化：大于127为255(白)，小于等于12",
           date: "Sat Mar 21 2026 00:00:00 GMT+0800",
-          updated: "Mon Mar 23 2026 23:50:10 GMT+0800",
+          updated: "Tue Mar 24 2026 15:51:44 GMT+0800",
           cover: "/images/banner.webp",
         };
       </script>
