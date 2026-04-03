@@ -9,7 +9,7 @@
   
   <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_4k4bc36ef96';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://Con-quer.github.io';</script>
   <title>
-    OpenCV基础运用回顾 | cOnQuer的个人博客
+    Python数据挖掘1 | cOnQuer的个人博客
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media='all'">
@@ -17,19 +17,21 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="OpenCV是计算机视觉领域的工业级标准工具，覆盖图像 &#x2F; 视频处理、特征提取、目标检测、深度学习、三维视觉所有核心场景。 1.基本运用读取本地图像、显示图像、保存处理后的图像，是 OpenCV 的入口操作，用于加载素材、保存结果、可视化调试。    基础函数 功能    cv2.imread(path, flag) 读取图像 （参数2：1&#x3D;彩色，0&#x3D;灰度，-1&amp;#x">
+    <meta name="description" content="KNN算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenCV基础运用回顾">
-<meta property="og:url" content="https://con-quer.github.io/2026/03/20/OpenCV%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%94%A81/index.html">
+<meta property="og:title" content="Python数据挖掘1">
+<meta property="og:url" content="https://con-quer.github.io/2026/04/03/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/index.html">
 <meta property="og:site_name" content="cOnQuer的个人博客">
-<meta property="og:description" content="OpenCV是计算机视觉领域的工业级标准工具，覆盖图像 &#x2F; 视频处理、特征提取、目标检测、深度学习、三维视觉所有核心场景。 1.基本运用读取本地图像、显示图像、保存处理后的图像，是 OpenCV 的入口操作，用于加载素材、保存结果、可视化调试。    基础函数 功能    cv2.imread(path, flag) 读取图像 （参数2：1&#x3D;彩色，0&#x3D;灰度，-1&amp;#x">
+<meta property="og:description" content="KNN算法">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-03-19T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-29T14:55:36.051Z">
+<meta property="og:image" content="https://con-quer.github.io/image.png">
+<meta property="article:published_time" content="2026-04-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-03T10:15:46.790Z">
 <meta property="article:author" content="cOnQuer">
 <meta property="article:tag" content="OpenCV">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://con-quer.github.io/image.png">
     <link rel="alternate" href="/atom.xml" title="cOnQuer的个人博客" type="application/atom+xml">
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -128,11 +130,11 @@
 <header id="header" aria-label="Site header">
         <picture>
         </picture>
-          <img id="random-banner"  fetchpriority="high" src="/images/banner.webp" alt="OpenCV基础运用回顾">
+          <img id="random-banner"  fetchpriority="high" src="/images/banner.webp" alt="Python数据挖掘1">
   <div id="header-outer">
     <div id="header-title">
           <span id="logo">
-            <h1 data-aos="slide-up">OpenCV基础运用回顾</h1>
+            <h1 data-aos="slide-up">Python数据挖掘1</h1>
           </span>
         <h2 id="subtitle-wrap" data-aos="slide-down">
         </h2>
@@ -167,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="sidebar-wrap" data-aos="fade-up">
           <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#KNN%E7%AE%97%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">KNN算法</span></a></li></ol>
 </div>
 </div>
           <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -233,13 +235,13 @@ document.addEventListener("DOMContentLoaded", function() {
   </div>
 </aside>
 
-          <section id="main" aria-label="Main content"><article id="post-OpenCV的基本运用1" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
+          <section id="main" aria-label="Main content"><article id="post-python数据挖掘回顾1" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner" data-aos="fade-up">
     <div class="article-meta">
       <div class="article-date">
   <span class="article-date-link icon-calendar" data-aos="zoom-in">
-    <time datetime="2026-03-19T16:00:00.000Z" itemprop="datePublished">2026-03-20</time>
-    <time style="display: none;" id="post-update-time">2026-03-29</time>
+    <time datetime="2026-04-02T16:00:00.000Z" itemprop="datePublished">2026-04-03</time>
+    <time style="display: none;" id="post-update-time">2026-04-03</time>
   </span>
 </div>
 
@@ -248,65 +250,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="hr-line"></div>
     
     <div class="e-content article-entry" itemprop="articleBody">
-        <p>OpenCV是计算机视觉领域的工业级标准工具，覆盖图像 &#x2F; 视频处理、特征提取、目标检测、深度学习、三维视觉所有核心场景。</p>
-<p><strong>1.基本运用</strong><br>读取本地图像、显示图像、保存处理后的图像，是 OpenCV 的入口操作，用于加载素材、保存结果、可视化调试。</p>
-<table>
-<thead>
-<tr>
-<th>基础函数</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>cv2.imread(path, flag)</td>
-<td>读取图像 （参数2：1&#x3D;彩色，0&#x3D;灰度，-1&#x3D;带透明通道）</td>
-</tr>
-<tr>
-<td>cv2.imshow(name, img)</td>
-<td>显示图像（必须配合 waitKey() 使用）</td>
-</tr>
-<tr>
-<td>cv2.imwrite(path, img)</td>
-<td>保存图像（支持 jpg&#x2F;png&#x2F;bmp）</td>
-</tr>
-<tr>
-<td>cv2.waitKey(delay)</td>
-<td>等待按键（0 &#x3D; 无限等待，数字 &#x3D; 延时毫秒）</td>
-</tr>
-<tr>
-<td>cv2.destroyAllWindows()</td>
-<td>关闭所有窗口 ，释放资源</td>
-</tr>
-</tbody></table>
-<p><strong>2.图像处理</strong><br>使图像尺寸统一、去冗余区域、颜色标准化、角度校正<br>（1）图像基础属性<br>获取图像尺寸、裁剪图像、缩放 &#x2F; 旋转 &#x2F; 翻转、转换色彩空间（视觉任务最核心预处理）。</p>
-<pre><code>h, w, ch = img.shape #获取高度，宽度，通道数
-size = img.size      #获取像素总数即h*w*ch
-dtype = img.dtype    #获取数据类型
-</code></pre>
-<p>（2）色彩空间转换<br>OpenCV 默认是 BGR，而主流工具是 RGB，灰度图用 GRAY，颜色识别用 HSV：</p>
-<pre><code>img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-</code></pre>
-<p>（3）几何变换</p>
-<pre><code>crop = img[100:300, 200:400]  #切片：[y起始:y结束, x起始:x结束]
-
-resize = cv2.resize(img, (300, 200)) #2. 缩放：宽, 高
-
-M = cv2.getRotationMatrix2D((w//2, h//2), 45, 1)  # 3. 旋转：取定中心、角度、缩放比例
-rotate = cv2.warpAffine(img, M, (w, h)) # 图形变换
-
-flip = cv2.flip(img, 1)# 4. 翻转（0=上下翻转，1=左右翻转，-1=对角翻转）
-</code></pre>
-<p><strong>3. 图像绘图标注</strong><br>在图像上画线、矩形、圆、文字，用于标注检测框、标记关键点、输出结果。用于目标检测框标注、关键点标记、结果文字输出、调试可视化。</p>
-<pre><code>cv2.line(img, (50,50), (200,200), (0,0,255), 2)  #画直线：起点、终点、颜色(BGR)、粗细
-
-cv2.rectangle(img, (50,50), (200,200), (255,0,0), 2) #画矩形：左上角、右下角、颜色、粗细（-1=填充）
-
-cv2.circle(img, (150,150), 50, (0,255,0), -1) #画圆：圆心、半径、颜色、粗细
-
-cv2.putText(img, &quot;OpenCV&quot;, (50,300), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2) #写文字：内容、位置、字体、大小、颜色、粗细
-</code></pre>
+        <h1 id="KNN算法"><a href="#KNN算法" class="headerlink" title="KNN算法"></a>KNN算法</h1><p><img src="/image.png" alt="alt text"></p>
 
     </div>
     <footer class="article-footer">
@@ -317,14 +261,14 @@ cv2.putText(img, &quot;OpenCV&quot;, (50,300), cv2.FONT_HERSHEY_SIMPLEX, 1, (255
     </footer>
   </div>
     <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
-      <div class="article-nav-link-wrap left">
-            <img data-src="/images/banner.webp" data-sizes="auto" alt="基于OpenCV与YOLO11的实时人脸识别项目" class="lazyload">
-        <a href="/2026/03/22/%E5%9F%BA%E4%BA%8EOpenCV%E5%92%8CYOLO11%E7%9A%84%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" aria-label="前一篇: 基于OpenCV与YOLO11的实时人脸识别项目" title="前一篇: 基于OpenCV与YOLO11的实时人脸识别项目"></a>
-        <div class="article-nav-caption">前一篇</div>
-        <h3 class="article-nav-title">
-            基于OpenCV与YOLO11的实时人脸识别项目
-        </h3>
-      </div>
+    <div class="article-nav-link-wrap right">
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV背景剪除" class="lazyload">
+      <a href="/2026/04/03/OpenCV%E8%83%8C%E6%99%AF%E5%89%AA%E9%99%A4/" aria-label="后一篇: OpenCV背景剪除"  title="后一篇: OpenCV背景剪除"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+          OpenCV背景剪除
+      </h3>
+    </div>
   </nav>
 
 </article>
@@ -374,7 +318,7 @@ cv2.putText(img, &quot;OpenCV&quot;, (50,300), cv2.FONT_HERSHEY_SIMPLEX, 1, (255
   <div class="sidebar-wrap">
         <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#KNN%E7%AE%97%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">KNN算法</span></a></li></ol>
 </div>
 </div>
         <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -496,13 +440,13 @@ cv2.putText(img, &quot;OpenCV&quot;, (50,300), cv2.FONT_HERSHEY_SIMPLEX, 1, (255
       <script data-pjax>
         window.REIMU_POST = {
           author: "cOnQuer",
-          title: "OpenCV基础运用回顾",
-          url: "https://con-quer.github.io/2026/03/20/OpenCV%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%94%A81/",
+          title: "Python数据挖掘1",
+          url: "https://con-quer.github.io/2026/04/03/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/",
           excerpt: "",
           description: "",
-          stripContent: "OpenCV是计算机视觉领域的工业级标准工具，覆盖图像 &amp;#x2F; 视频处理、特征提取、目标检测、深度学习、三维视觉所有核心场景。 1.基本运用读取本地图像、显示图像、保存处理后的图像，是 OpenCV 的入口操作，用于加载素材、保存结果、可视化调试。    基础函数 功能    cv2.imread(path, flag) 读取图像 （参数2：1&amp;#x3D;彩色，0&amp;#x3D;灰度，-1&amp;#x3D;带透明通道）   cv2.imshow(name, img) 显示图像（必须配合 waitKe",
-          date: "Fri Mar 20 2026 00:00:00 GMT+0800",
-          updated: "Sun Mar 29 2026 22:55:36 GMT+0800",
+          stripContent: "KNN算法 ",
+          date: "Fri Apr 03 2026 00:00:00 GMT+0800",
+          updated: "Fri Apr 03 2026 18:15:46 GMT+0800",
           cover: "/images/banner.webp",
         };
       </script>
