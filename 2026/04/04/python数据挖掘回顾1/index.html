@@ -5,7 +5,13 @@
   <head>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true}, // 块级公式 $$...$$
+    {left: '$', right: '$', display: false}   // 行内公式 $...$
+  ],
+  throwOnError: false // 公式有小错不报错，避免页面崩
+  });"></script>
   <meta charset="utf-8">
   
   
@@ -20,12 +26,12 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="KNN算法给定一个新样本，在训练集中找到和它距离最近的 k 个样本   鸢尾花数据集sklearn提供的现成的数据集，主要用来学习和测试     代码实现： import numpy as np import matplotlib.pyplot as plt from sklearn.neighbors import KNeighborsClassifier from sklearn.model_">
+    <meta name="description" content="KNN算法给定一个新样本，在训练集中找到和它距离最近的 k 个样本 鸢尾花数据集sklearn提供的现成的数据集，主要用来学习和测试 代码实现： import numpy as np import matplotlib.pyplot as plt from sklearn.neighbors import KNeighborsClassifier from sklearn.model_select">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python数据挖掘1">
 <meta property="og:url" content="https://con-quer.github.io/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/index.html">
 <meta property="og:site_name" content="cOnQuer的个人博客">
-<meta property="og:description" content="KNN算法给定一个新样本，在训练集中找到和它距离最近的 k 个样本   鸢尾花数据集sklearn提供的现成的数据集，主要用来学习和测试     代码实现： import numpy as np import matplotlib.pyplot as plt from sklearn.neighbors import KNeighborsClassifier from sklearn.model_">
+<meta property="og:description" content="KNN算法给定一个新样本，在训练集中找到和它距离最近的 k 个样本 鸢尾花数据集sklearn提供的现成的数据集，主要用来学习和测试 代码实现： import numpy as np import matplotlib.pyplot as plt from sklearn.neighbors import KNeighborsClassifier from sklearn.model_select">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://con-quer.github.io/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/knn.png">
 <meta property="og:image" content="https://con-quer.github.io/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/iris.png">
@@ -50,7 +56,7 @@
     
 <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
 
-<meta name="generator" content="Hexo 8.1.1"></head>
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
 
   <body>
       <div id='loader'>
@@ -256,14 +262,8 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="hr-line"></div>
     
     <div class="e-content article-entry" itemprop="articleBody">
-        <h1 id="KNN算法"><a href="#KNN算法" class="headerlink" title="KNN算法"></a>KNN算法</h1><p>给定一个新样本，在训练集中找到和它距离最近的 k 个样本</p>
-<img src="/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/knn.png" class="">
-
-<p><strong>鸢尾花数据集</strong><br>sklearn提供的现成的数据集，主要用来学习和测试</p>
-<img src="/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/iris.png" class="">
-
-
-
+        <h1 id="KNN算法"><a href="#KNN算法" class="headerlink" title="KNN算法"></a>KNN算法</h1><p>给定一个新样本，在训练集中找到和它距离最近的 k 个样本<br><img src="/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/knn.png" class=""></p>
+<p><strong>鸢尾花数据集</strong><br>sklearn提供的现成的数据集，主要用来学习和测试<br><img src="/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/iris.png" class=""></p>
 <p>代码实现：</p>
 <pre><code>import numpy as np
 import matplotlib.pyplot as plt
@@ -280,14 +280,13 @@ knn=KNeighborsClassifier()
 knn.fit(train_x,train_y)
 pred=knn.predict(test_x)
 score=knn.score(test_x,test_y)
-</code></pre>
-<h1 id="线性回归算法"><a href="#线性回归算法" class="headerlink" title="线性回归算法"></a>线性回归算法</h1><p>找到一条直线&#x2F;超平面，让它尽可能穿过所有数据点，以后给新 X，就能算出 y，只能预测连续数值，不能分类</p>
+</code></pre><h1 id="线性回归算法"><a href="#线性回归算法" class="headerlink" title="线性回归算法"></a>线性回归算法</h1><p>找到一条直线/超平面，让它尽可能穿过所有数据点，以后给新 X，就能算出 y，只能预测连续数值，不能分类</p>
 <p>多元公式</p>
-<p>$$<br>y&#x3D;w_1x_1+w_2x_2+w_3x_3…+b<br>$$</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><msub><mi>w</mi><mn>1</mn></msub><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>w</mi><mn>2</mn></msub><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><msub><mi>w</mi><mn>3</mn></msub><msub><mi>x</mi><mn>3</mn></msub><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">
+y=w_1x_1+w_2x_2+w_3x_3...+b
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">...</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span></span>
 <p>训练原理：最小二乘法<br>让所有点的 (真实值 − 预测值)² 之和最小</p>
-<p><strong>鲍鱼年龄数据</strong>(性别、长度、直径、高度、总重、肉重、内脏重、壳重、年龄)：</p>
-<img src="/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/abalone.png" class="">
-
+<p><strong>鲍鱼年龄数据</strong>(性别、长度、直径、高度、总重、肉重、内脏重、壳重、年龄)：<br><img src="/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/abalone.png" class=""></p>
 <p>代码实现：</p>
 <pre><code>import numpy as np
 import pandas as pd
@@ -304,11 +303,9 @@ linear=LinearRegression()
 linear.fit(train_x,train_y)
 pred=linear.predict(test_x)
 score=linear.score(test_x,test_y) #此处score为R²决定系数（0~1），越接近 1 拟合越好
-</code></pre>
-<h1 id="逻辑回归算法"><a href="#逻辑回归算法" class="headerlink" title="逻辑回归算法"></a>逻辑回归算法</h1><p>Logistic Regression虽然名字里带“回归”，但是它实际上是一种分类方法，用于两分类问题（即输出只有两种）。首先需要先找到一个预测函数（h），显然，该函数的输出必须是两类值（分别代表两个类别），所以利用了<em>Logistic函数（或称为Sigmoid函数）</em>，函数形式为：<br>$$<br>\sigma(z)&#x3D;\frac{1}{1+e^ {-z} }<br>$$<br>该函数图像为：</p>
-<img src="/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/sigmoid.png" class="">
-
-
+</code></pre><h1 id="逻辑回归算法"><a href="#逻辑回归算法" class="headerlink" title="逻辑回归算法"></a>逻辑回归算法</h1><p>Logistic Regression虽然名字里带“回归”，但是它实际上是一种分类方法，用于两分类问题（即输出只有两种）。首先需要先找到一个预测函数（h），显然，该函数的输出必须是两类值（分别代表两个类别），所以利用了<em>Logistic函数（或称为Sigmoid函数）</em>，函数形式为：<br><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>σ</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>z</mi></mrow></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+\sigma(z)=\frac{1}{1+e^ {-z} }
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0908em;vertical-align:-0.7693em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6973em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><br>该函数图像为：<br><img src="/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/sigmoid.png" class=""></p>
 <pre><code>import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -334,7 +331,6 @@ logic.fit(train_x,train_y)
 pred=logic.predict(test_x)
 score=logic.score(test_x,test_y)
 </code></pre>
-
     </div>
     <footer class="article-footer">
         <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E5%9B%9E%E9%A1%BE/" title="学习回顾" data-aos="zoom-in">学习回顾</a>
@@ -376,10 +372,10 @@ score=logic.score(test_x,test_y)
       </div>
       <div>
         <span class="icon-brush"></span>
-        5.5k
+        5.4k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:28
+        00:29
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -527,7 +523,7 @@ score=logic.score(test_x,test_y)
           url: "https://con-quer.github.io/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/",
           excerpt: "",
           description: "",
-          stripContent: "KNN算法给定一个新样本，在训练集中找到和它距离最近的 k 个样本   鸢尾花数据集sklearn提供的现成的数据集，主要用来学习和测试     代码实现： import numpy as np import matplotlib.pyplot as plt from sklearn.neighbors import KNeighborsClassifier from sklearn.model_selection import train_test_split #数据集分类器 from skl",
+          stripContent: "KNN算法给定一个新样本，在训练集中找到和它距离最近的 k 个样本 鸢尾花数据集sklearn提供的现成的数据集，主要用来学习和测试 代码实现： import numpy as np import matplotlib.pyplot as plt from sklearn.neighbors import KNeighborsClassifier from sklearn.model_selection import train_test_split #数据集分类器 from sklearn.d",
           date: "Sat Apr 04 2026 00:00:00 GMT+0800",
           updated: "Sat Apr 04 2026 14:59:06 GMT+0800",
           cover: "/images/banner.webp",

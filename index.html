@@ -5,7 +5,13 @@
   <head>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true}, // 块级公式 $$...$$
+    {left: '$', right: '$', display: false}   // 行内公式 $...$
+  ],
+  throwOnError: false // 公式有小错不报错，避免页面崩
+  });"></script>
   <meta charset="utf-8">
   
   
@@ -41,7 +47,7 @@
     
 <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
 
-<meta name="generator" content="Hexo 8.1.1"></head>
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
 
   <body>
       <div id='loader'>
@@ -232,19 +238,13 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2026-04-04</span>
-        <span><span class="icon-pencil"></span>642 字</span>
-        <span><span class="icon-clock"></span>3 分钟</span>
+        <span><span class="icon-pencil"></span>662 字</span>
+        <span><span class="icon-clock"></span>4 分钟</span>
       </div>
       <h2 class="post-title">Python数据挖掘1</h2>
       <article class="post-article">
           KNN算法给定一个新样本，在训练集中找到和它距离最近的 k 个样本
-
-
 鸢尾花数据集sklearn提供的现成的数据集，主要用来学习和测试
-
-
-
-
 代码实现：
 import numpy as np
 import matplotlib.pyplot as plt
@@ -252,7 +252,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split #数据集分类器
 from sklearn.datasets import load_iris  #鸢尾花数据集
 
-iris=load
+iris=load_iris(
       </article>
     </div>
   </div>
@@ -266,14 +266,14 @@ iris=load
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2026-04-03</span>
-        <span><span class="icon-pencil"></span>997 字</span>
+        <span><span class="icon-pencil"></span>995 字</span>
         <span><span class="icon-clock"></span>5 分钟</span>
       </div>
       <h2 class="post-title">OpenCV背景剪除</h2>
       <article class="post-article">
           一.帧差法帧差法（Frame Difference Method）是 OpenCV 中一种简单高效的运动目标检测技术，属于背景减除（Background Subtraction）的基础方法之一，通过计算视频序列中连续帧之间的像素差异来识别和定位场景中的动态对象。
 数学模型：
- D(t) &amp;#x3D; | I(t) − I(t-1) |
+ D(t) = | I(t) − I(t-1) |
 I(t)：当前帧灰度图像I(t-1)：前一帧灰度图像D(t)：差分结果图（像素差值绝对值）
 import cv2
 import numpy as np
@@ -282,7 +282,7 @@ import numpy as np
 cap = cv2.VideoCapture(0)
 
 # 读取前两帧
-ret, prev_
+ret, prev_frame
       </article>
     </div>
   </div>
@@ -296,7 +296,7 @@ ret, prev_
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2026-04-01</span>
-        <span><span class="icon-pencil"></span>543 字</span>
+        <span><span class="icon-pencil"></span>540 字</span>
         <span><span class="icon-clock"></span>3 分钟</span>
       </div>
       <h2 class="post-title">OpenCV实战回顾</h2>
@@ -305,9 +305,10 @@ ret, prev_
 作用：把图像信息拆成「色相」+「饱和度」+「明度」 三个独立维度，是最适合做人眼视觉、颜色识别、抗光照处理的颜色空间。
 （1）色相标准范围：0° ~ 360°（像一个颜色圆环）OpenCV 里为了存成 8 位图，压缩成：0 ~ 179
 （2）饱和度范围：0 ~ 255S ≈ 0：灰色、发白、没颜色；S 越大：颜色越鲜艳、越纯（灰度图的S为0）作用：过滤掉灰色背景，只保留鲜艳的彩色区域
-（3）明度范围：0 ~ 255V &amp;#x3D; 0：纯黑；V &amp;#x3D; 255：最亮照片的光照变化指挥改变V，H基本不变
+（3）明度范围：0 ~ 255V = 0：纯黑；V = 255：最亮照片的光照变化指挥改变V，H基本不变
 例：
-hsv = cv2.cvtColor(img, cv2.COLOR
+hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
       </article>
     </div>
   </div>
@@ -321,7 +322,7 @@ hsv = cv2.cvtColor(img, cv2.COLOR
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2026-03-29</span>
-        <span><span class="icon-pencil"></span>560 字</span>
+        <span><span class="icon-pencil"></span>556 字</span>
         <span><span class="icon-clock"></span>3 分钟</span>
       </div>
       <h2 class="post-title">OpenCV进阶运用补充</h2>
@@ -329,12 +330,11 @@ hsv = cv2.cvtColor(img, cv2.COLOR
           1.边缘检测
 最常用的是Canny边缘检测
 edges = cv2.Canny(图像, 低阈值, 高阈值)
-
-图像：必须是灰度图（边缘检测只看亮度变化，不看颜色）低阈值、高阈值：控制边缘灵敏度比例推荐 1:2 或 1:3（比如 50, 100 &amp;#x2F; 100, 200）阈值越小 → 边缘越多（容易有杂边）阈值越大 → 边缘越少（只保留明显轮廓）
+图像：必须是灰度图（边缘检测只看亮度变化，不看颜色）低阈值、高阈值：控制边缘灵敏度比例推荐 1:2 或 1:3（比如 50, 100 / 100, 200）阈值越小 → 边缘越多（容易有杂边）阈值越大 → 边缘越少（只保留明显轮廓）
 与findcontours结合比二值化效果更好：
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 blur=cv2.GaussianBlur(gray,(5,5),0)
-edges = cv2.Canny(
+edges = cv2.Canny(blur,5
       </article>
     </div>
   </div>
@@ -359,19 +359,7 @@ edges = cv2.Canny(
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) 
 
 ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY) #固定阈值二值化：大于127为255(白)，小于等于127则为0(黑)
-
-（2）滤波去噪
-
-
-
-滤波
-函数
-功能
-
-
-
-均值滤波
-cv2.blur(img,
+（2）滤波去噪|  滤波 | 函数  |功能||—-|—-|—-||均值滤波|cv2
       </article>
     </div>
   </div>
@@ -390,18 +378,17 @@ cv2.blur(img,
       </div>
       <h2 class="post-title">基于OpenCV与YOLO11的实时人脸识别项目</h2>
       <article class="post-article">
-          该项目基于OpenCV内置的目标检测功能和YOLO的人脸识别功能我将以机器学习的基本的三个环节，分板块执行：get_picture.py—-准备数据train.py———-训练模型start.py———-开始识别
+          该项目基于OpenCV内置的目标检测功能和YOLO的人脸识别功能我将以机器学习的基本的三个环节，分板块执行：get_picture.py——准备数据train.py—————训练模型start.py—————开始识别
 获取图片需要导入的库如下：
 import cv2
 import os
 import tkinter as tk
 from tkinter import simpledialog
 import shutil
-
 定义camera：打开摄像头并初始化，分辨率以一般笔记本的标准 1280*720。
 def camera():
     cap = cv2.VideoCapture(0)
-   
+  
       </article>
     </div>
   </div>
@@ -415,31 +402,13 @@ def camera():
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2026-03-20</span>
-        <span><span class="icon-pencil"></span>589 字</span>
+        <span><span class="icon-pencil"></span>579 字</span>
         <span><span class="icon-clock"></span>3 分钟</span>
       </div>
       <h2 class="post-title">OpenCV基础运用回顾</h2>
       <article class="post-article">
-          OpenCV是计算机视觉领域的工业级标准工具，覆盖图像 &amp;#x2F; 视频处理、特征提取、目标检测、深度学习、三维视觉所有核心场景。
-1.基本运用读取本地图像、显示图像、保存处理后的图像，是 OpenCV 的入口操作，用于加载素材、保存结果、可视化调试。
-
-
-
-基础函数
-功能
-
-
-
-cv2.imread(path, flag)
-读取图像 （参数2：1&amp;#x3D;彩色，0&amp;#x3D;灰度，-1&amp;#x3D;带透明通道）
-
-
-cv2.imshow(name, img)
-显示图像（必须配合 waitKey() 使用）
-
-
-cv2.imwrite(path, img)
-保存图像（支持 jpg&amp;#x2F;
+          OpenCV是计算机视觉领域的工业级标准工具，覆盖图像 / 视频处理、特征提取、目标检测、深度学习、三维视觉所有核心场景。
+1.基本运用读取本地图像、显示图像、保存处理后的图像，是 OpenCV 的入口操作，用于加载素材、保存结果、可视化调试。|基础函数|  功能 ||—-|—-||cv2.imread(path, flag) | 读取图像 （参数2：1=彩色，0=灰度，-1=带透明通道） || cv2.imshow(name, img)  | 显示图像（必须配合 waitKey() 使用） || cv2.imwrite(path, img) | 保存图像（支持 jpg/png/bmp） ||
       </article>
     </div>
   </div>
@@ -464,10 +433,10 @@ cv2.imwrite(path, img)
       </div>
       <div>
         <span class="icon-brush"></span>
-        5.5k
+        5.4k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:28
+        00:29
       </div>
       <div>
         <span class="icon-eye"></span>

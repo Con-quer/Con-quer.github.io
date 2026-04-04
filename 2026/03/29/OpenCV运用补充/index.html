@@ -5,7 +5,13 @@
   <head>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true}, // 块级公式 $$...$$
+    {left: '$', right: '$', display: false}   // 行内公式 $...$
+  ],
+  throwOnError: false // 公式有小错不报错，避免页面崩
+  });"></script>
   <meta charset="utf-8">
   
   
@@ -20,12 +26,12 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="1.边缘检测 最常用的是Canny边缘检测 edges &#x3D; cv2.Canny(图像, 低阈值, 高阈值)  图像：必须是灰度图（边缘检测只看亮度变化，不看颜色）低阈值、高阈值：控制边缘灵敏度比例推荐 1:2 或 1:3（比如 50, 100 &#x2F; 100, 200）阈值越小 → 边缘越多（容易有杂边）阈值越大 → 边缘越少（只保留明显轮廓） 与findcontours结合比二值化效果更好">
+    <meta name="description" content="1.边缘检测 最常用的是Canny边缘检测 edges &#x3D; cv2.Canny(图像, 低阈值, 高阈值) 图像：必须是灰度图（边缘检测只看亮度变化，不看颜色）低阈值、高阈值：控制边缘灵敏度比例推荐 1:2 或 1:3（比如 50, 100 &#x2F; 100, 200）阈值越小 → 边缘越多（容易有杂边）阈值越大 → 边缘越少（只保留明显轮廓） 与findcontours结合比二值化效果更好： gray">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenCV进阶运用补充">
 <meta property="og:url" content="https://con-quer.github.io/2026/03/29/OpenCV%E8%BF%90%E7%94%A8%E8%A1%A5%E5%85%85/index.html">
 <meta property="og:site_name" content="cOnQuer的个人博客">
-<meta property="og:description" content="1.边缘检测 最常用的是Canny边缘检测 edges &#x3D; cv2.Canny(图像, 低阈值, 高阈值)  图像：必须是灰度图（边缘检测只看亮度变化，不看颜色）低阈值、高阈值：控制边缘灵敏度比例推荐 1:2 或 1:3（比如 50, 100 &#x2F; 100, 200）阈值越小 → 边缘越多（容易有杂边）阈值越大 → 边缘越少（只保留明显轮廓） 与findcontours结合比二值化效果更好">
+<meta property="og:description" content="1.边缘检测 最常用的是Canny边缘检测 edges &#x3D; cv2.Canny(图像, 低阈值, 高阈值) 图像：必须是灰度图（边缘检测只看亮度变化，不看颜色）低阈值、高阈值：控制边缘灵敏度比例推荐 1:2 或 1:3（比如 50, 100 &#x2F; 100, 200）阈值越小 → 边缘越多（容易有杂边）阈值越大 → 边缘越少（只保留明显轮廓） 与findcontours结合比二值化效果更好： gray">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-28T16:00:00.000Z">
 <meta property="article:modified_time" content="2026-03-29T14:55:40.922Z">
@@ -45,7 +51,7 @@
     
 <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
 
-<meta name="generator" content="Hexo 8.1.1"></head>
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
 
   <body>
       <div id='loader'>
@@ -254,15 +260,13 @@ document.addEventListener("DOMContentLoaded", function() {
         <p><strong>1.边缘检测</strong></p>
 <p>最常用的是Canny边缘检测</p>
 <pre><code>edges = cv2.Canny(图像, 低阈值, 高阈值)
-</code></pre>
-<p>图像：必须是灰度图（边缘检测只看亮度变化，不看颜色）<br>低阈值、高阈值：控制边缘灵敏度<br>比例推荐 1:2 或 1:3（比如 50, 100 &#x2F; 100, 200）<br>阈值越小 → 边缘越多（容易有杂边）<br>阈值越大 → 边缘越少（只保留明显轮廓）</p>
+</code></pre><p>图像：必须是灰度图（边缘检测只看亮度变化，不看颜色）<br>低阈值、高阈值：控制边缘灵敏度<br>比例推荐 1:2 或 1:3（比如 50, 100 / 100, 200）<br>阈值越小 → 边缘越多（容易有杂边）<br>阈值越大 → 边缘越少（只保留明显轮廓）</p>
 <p>与findcontours结合比二值化效果更好：</p>
 <pre><code>gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 blur=cv2.GaussianBlur(gray,(5,5),0)
 edges = cv2.Canny(blur,50,150)
 contours ,hierarchy=cv2.findContours(edges,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
-</code></pre>
-<p><strong>2.图像直方图</strong><br>（1）计算：cv2.calcHist()<br>分析图像明暗、对比度</p>
+</code></pre><p><strong>2.图像直方图</strong><br>（1）计算：cv2.calcHist()<br>分析图像明暗、对比度</p>
 <pre><code>hist = cv2.calcHist(
     images,    # 输入图像（必须用列表包裹：[img]）
     channels,  # 通道索引：灰度图[0]，彩色BGR[0][1][2]
@@ -270,8 +274,7 @@ contours ,hierarchy=cv2.findContours(edges,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SI
     histSize,  # 直方图柱子数量（灰度级256 → [256]）
     ranges     # 像素值范围（固定 [0,256]）
     )
-</code></pre>
-<p>images：图片 → 必须套 []<br>channels：通道 → 灰度[0]，彩色分 B&#x2F;G&#x2F;R<br>mask：遮罩 → 不用就写 None<br>histSize：柱子数 → 灰度图固定 [256]<br>ranges：范围 → 固定 [0, 256]</p>
+</code></pre><p>images：图片 → 必须套 []<br>channels：通道 → 灰度[0]，彩色分 B/G/R<br>mask：遮罩 → 不用就写 None<br>histSize：柱子数 → 灰度图固定 [256]<br>ranges：范围 → 固定 [0, 256]</p>
 <p>灰度图直方图：</p>
 <pre><code>import cv2
 import matplotlib.pyplot as plt
@@ -282,24 +285,20 @@ hist = cv2.calcHist([img], [0], None, [256], [0,256])
 plt.plot(hist)
 plt.title(&quot;灰度直方图&quot;)
 plt.show()
-</code></pre>
-<p>彩色图三通道直方图：</p>
+</code></pre><p>彩色图三通道直方图：</p>
 <pre><code>img = cv2.imread(&quot;test.jpg&quot;)
 colors = [&#39;b&#39;,&#39;g&#39;,&#39;r&#39;]
 for i,col in enumerate(colors):
     hist = cv2.calcHist([img],[i],None,[256],[0,256])
     plt.plot(hist,color=col)
 plt.show()
-</code></pre>
-<p>（2）均衡化：equalizeHist()<br>把偏暗、偏亮、低对比度的灰度图，变得明暗均匀、细节清晰。原理：把挤在一起的像素亮度，均匀铺满 0~255 整个范围。</p>
+</code></pre><p>（2）均衡化：equalizeHist()<br>把偏暗、偏亮、低对比度的灰度图，变得明暗均匀、细节清晰。原理：把挤在一起的像素亮度，均匀铺满 0~255 整个范围。</p>
 <pre><code>equalized_img = cv2.equalizeHist(灰度图像)
-</code></pre>
-<p><strong>3. 滑动条</strong></p>
+</code></pre><p><strong>3. 滑动条</strong></p>
 <p>滑动条常用来实时调节参数（比如亮度、阈值、颜色值等），配合窗口实时显示效果。</p>
 <pre><code>cv2.createTrackbar(trackbar_name, window_name, default_value, max_value, callback_func)
-</code></pre>
-<p>trackbar_name：滑动条的名称（唯一标识）<br>window_name：绑定的窗口名称（必须先创建窗口）<br>default_value：滑动条初始值<br>max_value：滑动条最大值（最小值固定为 0）<br>callback_func：滑动条拖动时的回调函数（可以写空函数）</p>
-<p>def change(x):<br>    val &#x3D; cv2.getTrackbarPos(‘VAL’, ‘control’)<br>    print(val)</p>
+</code></pre><p>trackbar_name：滑动条的名称（唯一标识）<br>window_name：绑定的窗口名称（必须先创建窗口）<br>default_value：滑动条初始值<br>max_value：滑动条最大值（最小值固定为 0）<br>callback_func：滑动条拖动时的回调函数（可以写空函数）</p>
+<p>def change(x):<br>    val = cv2.getTrackbarPos(‘VAL’, ‘control’)<br>    print(val)</p>
 <p>cv2.namedWindow(“control”)<br>cv2.resizeWindow(“control”,480,180)<br>cv2.createTrackbar(“VAL”,”control”,0,100, change) # 滑动条</p>
 
     </div>
@@ -351,10 +350,10 @@ plt.show()
       </div>
       <div>
         <span class="icon-brush"></span>
-        5.5k
+        5.4k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:28
+        00:29
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -502,7 +501,7 @@ plt.show()
           url: "https://con-quer.github.io/2026/03/29/OpenCV%E8%BF%90%E7%94%A8%E8%A1%A5%E5%85%85/",
           excerpt: "",
           description: "",
-          stripContent: "1.边缘检测 最常用的是Canny边缘检测 edges = cv2.Canny(图像, 低阈值, 高阈值)  图像：必须是灰度图（边缘检测只看亮度变化，不看颜色）低阈值、高阈值：控制边缘灵敏度比例推荐 1:2 或 1:3（比如 50, 100 &amp;#x2F; 100, 200）阈值越小 → 边缘越多（容易有杂边）阈值越大 → 边缘越少（只保留明显轮廓） 与findcontours结合比二值化效果更好： gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) blur",
+          stripContent: "1.边缘检测 最常用的是Canny边缘检测 edges = cv2.Canny(图像, 低阈值, 高阈值) 图像：必须是灰度图（边缘检测只看亮度变化，不看颜色）低阈值、高阈值：控制边缘灵敏度比例推荐 1:2 或 1:3（比如 50, 100 / 100, 200）阈值越小 → 边缘越多（容易有杂边）阈值越大 → 边缘越少（只保留明显轮廓） 与findcontours结合比二值化效果更好： gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) blur=cv2.G",
           date: "Sun Mar 29 2026 00:00:00 GMT+0800",
           updated: "Sun Mar 29 2026 22:55:40 GMT+0800",
           cover: "/images/banner.webp",

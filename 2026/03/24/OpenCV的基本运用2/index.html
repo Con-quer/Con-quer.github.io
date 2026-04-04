@@ -5,7 +5,13 @@
   <head>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true}, // 块级公式 $$...$$
+    {left: '$', right: '$', display: false}   // 行内公式 $...$
+  ],
+  throwOnError: false // 公式有小错不报错，避免页面崩
+  });"></script>
   <meta charset="utf-8">
   
   
@@ -45,7 +51,7 @@
     
 <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
 
-<meta name="generator" content="Hexo 8.1.1"></head>
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
 
   <body>
       <div id='loader'>
@@ -257,37 +263,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <pre><code>gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) 
 
 ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY) #固定阈值二值化：大于127为255(白)，小于等于127则为0(黑)
-</code></pre>
-<p>（2）滤波去噪</p>
-<table>
-<thead>
-<tr>
-<th>滤波</th>
-<th>函数</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>均值滤波</td>
-<td>cv2.blur(img,(卷积核大小))</td>
-<td>简单去噪，速度快</td>
-</tr>
-<tr>
-<td>高斯滤波</td>
-<td>cv2.GaussianBlur(img,(卷积核大小),X方向高斯标准差（0自动计算）)</td>
-<td>抗高斯噪声（最常用）</td>
-</tr>
-<tr>
-<td>中值滤波</td>
-<td>cv2.medianBlur(img,卷积核大小（正奇数）)</td>
-<td>去椒盐噪声（黑白点）</td>
-</tr>
-<tr>
-<td>双边滤波</td>
-<td>cv2.bilateralFilter(img,像素邻域直径,颜色滤波标准差,空间滤波标准差)</td>
-<td>保边去噪（人脸处理）</td>
-</tr>
-</tbody></table>
+</code></pre><p>（2）滤波去噪<br>|  滤波 | 函数  |功能|<br>|—-|—-|—-|<br>|均值滤波|cv2.blur(img,(卷积核大小))|简单去噪，速度快|<br>|高斯滤波|cv2.GaussianBlur(img,(卷积核大小),X方向高斯标准差（0自动计算）)|抗高斯噪声（最常用）|<br>|中值滤波    |cv2.medianBlur(img,卷积核大小（正奇数）)|去椒盐噪声（黑白点）|<br>|双边滤波    |cv2.bilateralFilter(img,像素邻域直径,颜色滤波标准差,空间滤波标准差)|保边去噪（人脸处理）|</p>
 <p><strong>2. 形态学操作</strong></p>
 <p>基于二值图的腐蚀、膨胀、开运算、闭运算，修复图像缺陷：去除小噪点、连接断开区域、平滑轮廓。</p>
 <pre><code>binary = cv2.imread(&quot;binary.jpg&quot;, 0)
@@ -300,8 +276,7 @@ dilate = cv2.dilate(binary, kernel) #膨胀：扩大白色区域（补缺口）
 open = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel) #开运算：先腐蚀后膨胀（去外部噪点）
 
 close = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel) #闭运算：先膨胀后腐蚀（补内部孔洞）
-</code></pre>
-<p><strong>3. 轮廓检测与分析</strong></p>
+</code></pre><p><strong>3. 轮廓检测与分析</strong></p>
 <p>查找图像中物体的轮廓，计算轮廓的面积、周长、外接矩形，实现形状识别、物体计数、尺寸测量。</p>
 <pre><code>gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #处理轮廓最好用灰度图
 
@@ -316,9 +291,8 @@ cnt = contours[0]
 area = cv2.contourArea(cnt)  # 面积
 perimeter = cv2.arcLength(cnt, True)  # 周长
 x, y, w, h = cv2.boundingRect(cnt)  # 外接矩形
-</code></pre>
-<p><strong>4. 视频及摄像头实时处理</strong></p>
-<p>读取本地视频、调用电脑摄像头，逐帧处理视频，保存处理后的视频。（视频本质 &#x3D; 连续的图像帧。）</p>
+</code></pre><p><strong>4. 视频及摄像头实时处理</strong></p>
+<p>读取本地视频、调用电脑摄像头，逐帧处理视频，保存处理后的视频。（视频本质 = 连续的图像帧。）</p>
 <pre><code>cap = cv2.VideoCapture(0) #读取（0为默认摄像头，路径则为本地视频）
 
 fourcc = cv2.VideoWriter_fourcc(*&#39;XVID&#39;)  #保存视频
@@ -344,9 +318,8 @@ while True:
 # 释放资源
 cap.release()
 cv2.destroyAllWindows()
-</code></pre>
-<p><strong>5. 图像特征检测与匹配</strong></p>
-<p>提取图像关键点 &#x2F; 特征描述子，实现图像匹配、全景拼接、目标追踪、图像检索。<br>以ORB为例：</p>
+</code></pre><p><strong>5. 图像特征检测与匹配</strong></p>
+<p>提取图像关键点 / 特征描述子，实现图像匹配、全景拼接、目标追踪、图像检索。<br>以ORB为例：</p>
 <pre><code>orb = cv2.ORB_create() #初始化ORB检测器
 
 kp1, des1 = orb.detectAndCompute(img1, None) #查找关键点和描述子
@@ -356,8 +329,7 @@ bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 matches = bf.match(des1, des2) #暴力匹配
 
 res = cv2.drawMatches(img1, kp1, img2, kp2, matches, None, flags=2) #绘制匹配结果
-</code></pre>
-<p><strong>6. 传统目标检测</strong></p>
+</code></pre><p><strong>6. 传统目标检测</strong></p>
 <p>无需训练模型，直接调用 OpenCV 内置分类器，实现人脸、眼睛、行人检测。</p>
 <pre><code>face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + &#39;haarcascade_frontalface_default.xml&#39;) #加载人脸检测器
 
@@ -367,9 +339,8 @@ faces = face_cascade.detectMultiScale(gray, 1.1, 4) #检测人脸
 
 for (x,y,w,h) in faces: #绘制检测框
     cv2.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 2)
-</code></pre>
-<p><strong>7. OpenCV-DNN深度学习模块</strong></p>
-<p>OpenCV 内置DNN（深度神经网络）模块，直接加载预训练深度学习模型，支持YOLO、SSD、Faster-RCNN、MobileNet、TensorFlow&#x2F;PyTorch预训练模型，实现高精度目标检测、图像分类、语义分割，无需依赖深度学习框架，需手动下载模型。</p>
+</code></pre><p><strong>7. OpenCV-DNN深度学习模块</strong></p>
+<p>OpenCV 内置DNN（深度神经网络）模块，直接加载预训练深度学习模型，支持YOLO、SSD、Faster-RCNN、MobileNet、TensorFlow/PyTorch预训练模型，实现高精度目标检测、图像分类、语义分割，无需依赖深度学习框架，需手动下载模型。</p>
 <pre><code>net = cv2.dnn.readNet(&quot;yolov3.weights&quot;, &quot;yolov3.cfg&quot;) #加载YOLOv3模型
 
 blob = cv2.dnn.blobFromImage(img, 1/255, (416,416), (0,0,0), swapRB=True, crop=False) #图像转blob（模型输入格式）
@@ -377,7 +348,6 @@ net.setInput(blob)
 
 outs = net.forward(net.getUnconnectedOutLayersNames()) #前向推理
 </code></pre>
-
     </div>
     <footer class="article-footer">
         <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E5%9B%9E%E9%A1%BE/" title="学习回顾" data-aos="zoom-in">学习回顾</a>
@@ -427,10 +397,10 @@ outs = net.forward(net.getUnconnectedOutLayersNames()) #前向推理
       </div>
       <div>
         <span class="icon-brush"></span>
-        5.5k
+        5.4k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:28
+        00:29
       </div>
       <div>
         <span class="icon-eye"></span>
