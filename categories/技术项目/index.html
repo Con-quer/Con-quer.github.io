@@ -3,26 +3,41 @@
       data-theme-mode="auto"
   >
   <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
-  delimiters: [
-    {left: '$$', right: '$$', display: true}, // 块级公式 $$...$$
-    {left: '$', right: '$', display: false}   // 行内公式 $...$
-  ],
-  throwOnError: false // 公式有小错不报错，避免页面崩
-  });"></script>
+  <!-- KaTeX 公式渲染（完全修复语法错误+排版问题） -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.bootcdn.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.bootcdn.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true}, // 块级公式：$$...$$ 上下标在正上下
+          {left: "$", right: "$", display: false}   // 行内公式：$...$ 上下标在右侧
+        ],
+        throwOnError: false,
+        displayMode: true,
+        strict: false,
+        trust: true,
+        macros: {
+          // 强制\sum、\prod、\int 上下标在正上下
+          "\\sum": "\\sum\\limits",
+          "\\prod": "\\prod\\limits",
+          "\\int": "\\int\\limits"
+        }
+      });
+    });
+  </script>
   <meta charset="utf-8">
   
   
   
-  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_4k4bc36ef96';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://Con-quer.github.io';</script>
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_a0oqhord1y';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://Con-quer.github.io';</script>
   <title>
     目录: 技术项目 | cOnQuer的个人博客
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media='all'">
-    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_a0oqhord1y.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     
 <link rel="stylesheet" href="/css/loader.css">
 
@@ -179,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">8</div>
+    <div class="sidebar-state-number">9</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -296,10 +311,10 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
       <div>
         <span class="icon-brush"></span>
-        6k
+        7.1k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:31
+        00:36
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -327,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">8</div>
+    <div class="sidebar-state-number">9</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -442,7 +457,7 @@ document.addEventListener("DOMContentLoaded", function() {
   \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
                                                   
 `,'color: #ff5252;')
-    console.log('%c Theme.Reimu v' + '1.12.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.12.3' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
   </script>
   
 

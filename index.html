@@ -3,26 +3,41 @@
       data-theme-mode="auto"
   >
   <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
-  delimiters: [
-    {left: '$$', right: '$$', display: true}, // 块级公式 $$...$$
-    {left: '$', right: '$', display: false}   // 行内公式 $...$
-  ],
-  throwOnError: false // 公式有小错不报错，避免页面崩
-  });"></script>
+  <!-- KaTeX 公式渲染（完全修复语法错误+排版问题） -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.bootcdn.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.bootcdn.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true}, // 块级公式：$$...$$ 上下标在正上下
+          {left: "$", right: "$", display: false}   // 行内公式：$...$ 上下标在右侧
+        ],
+        throwOnError: false,
+        displayMode: true,
+        strict: false,
+        trust: true,
+        macros: {
+          // 强制\sum、\prod、\int 上下标在正上下
+          "\\sum": "\\sum\\limits",
+          "\\prod": "\\prod\\limits",
+          "\\int": "\\int\\limits"
+        }
+      });
+    });
+  </script>
   <meta charset="utf-8">
   
   
   
-  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_4k4bc36ef96';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://Con-quer.github.io';</script>
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_a0oqhord1y';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://Con-quer.github.io';</script>
   <title>
     cOnQuer的个人博客
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media='all'">
-    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_a0oqhord1y.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     
 <link rel="stylesheet" href="/css/loader.css">
 
@@ -178,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">8</div>
+    <div class="sidebar-state-number">9</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -231,8 +246,34 @@ document.addEventListener("DOMContentLoaded", function() {
 
           <section id="main" aria-label="Main content">      <div class="post-wrapper">
   <div class="post-wrap left" data-aos="fade-up">
-      <a class="post-link" href="/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/" aria-label="Python数据挖掘1" title="Python数据挖掘1"></a>
+      <a class="post-link" href="/2026/04/05/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%802/" aria-label="深度学习基础2" title="深度学习基础2"></a>
     <div class="post-cover left">
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础2" class="lazyload">
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2026-04-05</span>
+        <span><span class="icon-pencil"></span>944 字</span>
+        <span><span class="icon-clock"></span>4 分钟</span>
+      </div>
+      <h2 class="post-title">深度学习基础2</h2>
+      <article class="post-article">
+          神经网络的学习损失函数1.均方误差E=12∑k(yk−tk)2
+E=\frac{1}{2}\sum_k{(y_k-t_k)^2}
+E=21​k∑​(yk​−tk​)2yk 是表示神经网络的输出，tk 表示监督数据，k 表示数据的维数
+def mean_sqaured_error(y,t):
+    return 0.5 * np.sum((y-t)**2)   # 参数 y 和 t 是 NumPy 数组
+2.交叉熵误差E=−∑ktklog(yk)
+E=-\sum_k{t_klog(y_k)}
+E=−k∑​tk​log(yk​)log 表示以 e 为底数的自然对数（log e）。yk 是神经网络
+      </article>
+    </div>
+  </div>
+</div>
+      <div class="post-wrapper">
+  <div class="post-wrap right" data-aos="fade-up">
+      <a class="post-link" href="/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/" aria-label="Python数据挖掘1" title="Python数据挖掘1"></a>
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="Python数据挖掘1" class="lazyload">
     </div>
     <div class="post-info">
@@ -258,16 +299,16 @@ iris=load_iris(
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
-      <a class="post-link" href="/2026/04/04/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" aria-label="深度学习基础1" title="深度学习基础1"></a>
-    <div class="post-cover right">
+  <div class="post-wrap left" data-aos="fade-up">
+      <a class="post-link" href="/2026/04/04/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%801/" aria-label="深度学习基础1" title="深度学习基础1"></a>
+    <div class="post-cover left">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础1" class="lazyload">
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2026-04-04</span>
-        <span><span class="icon-pencil"></span>425 字</span>
-        <span><span class="icon-clock"></span>2 分钟</span>
+        <span><span class="icon-pencil"></span>658 字</span>
+        <span><span class="icon-clock"></span>3 分钟</span>
       </div>
       <h2 class="post-title">深度学习基础1</h2>
       <article class="post-article">
@@ -285,9 +326,9 @@ y={01​(w1​x1​+w2​x2​≤θ)(w1​x1​+w2​x2​&amp;gt;θ)​
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap left" data-aos="fade-up">
+  <div class="post-wrap right" data-aos="fade-up">
       <a class="post-link" href="/2026/04/03/OpenCV%E8%83%8C%E6%99%AF%E5%89%AA%E9%99%A4/" aria-label="OpenCV背景剪除" title="OpenCV背景剪除"></a>
-    <div class="post-cover left">
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV背景剪除" class="lazyload">
     </div>
     <div class="post-info">
@@ -315,9 +356,9 @@ ret, prev_frame
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
+  <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/2026/04/01/OpenCV%E5%AE%9E%E6%88%98%E8%BF%90%E7%94%A8%E6%80%BB%E7%BB%93/" aria-label="OpenCV实战回顾" title="OpenCV实战回顾"></a>
-    <div class="post-cover right">
+    <div class="post-cover left">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV实战回顾" class="lazyload">
     </div>
     <div class="post-info">
@@ -341,9 +382,9 @@ hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap left" data-aos="fade-up">
+  <div class="post-wrap right" data-aos="fade-up">
       <a class="post-link" href="/2026/03/29/OpenCV%E8%BF%90%E7%94%A8%E8%A1%A5%E5%85%85/" aria-label="OpenCV进阶运用补充" title="OpenCV进阶运用补充"></a>
-    <div class="post-cover left">
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV进阶运用补充" class="lazyload">
     </div>
     <div class="post-info">
@@ -367,9 +408,9 @@ edges = cv2.Canny(blur,5
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
+  <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/2026/03/24/OpenCV%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%94%A82/" aria-label="OpenCV进阶运用回顾" title="OpenCV进阶运用回顾"></a>
-    <div class="post-cover right">
+    <div class="post-cover left">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV进阶运用回顾" class="lazyload">
     </div>
     <div class="post-info">
@@ -392,9 +433,9 @@ ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY) #固定阈值二�
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap left" data-aos="fade-up">
+  <div class="post-wrap right" data-aos="fade-up">
       <a class="post-link" href="/2026/03/22/%E5%9F%BA%E4%BA%8EOpenCV%E5%92%8CYOLO11%E7%9A%84%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" aria-label="基于OpenCV与YOLO11的实时人脸识别项目" title="基于OpenCV与YOLO11的实时人脸识别项目"></a>
-    <div class="post-cover left">
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="基于OpenCV与YOLO11的实时人脸识别项目" class="lazyload">
     </div>
     <div class="post-info">
@@ -421,9 +462,9 @@ def camera():
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
+  <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/2026/03/20/OpenCV%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%94%A81/" aria-label="OpenCV基础运用回顾" title="OpenCV基础运用回顾"></a>
-    <div class="post-cover right">
+    <div class="post-cover left">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV基础运用回顾" class="lazyload">
     </div>
     <div class="post-info">
@@ -460,10 +501,10 @@ def camera():
       </div>
       <div>
         <span class="icon-brush"></span>
-        6k
+        7.1k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:31
+        00:36
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -491,7 +532,7 @@ def camera():
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">8</div>
+    <div class="sidebar-state-number">9</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -606,7 +647,7 @@ def camera():
   \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
                                                   
 `,'color: #ff5252;')
-    console.log('%c Theme.Reimu v' + '1.12.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.12.3' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
   </script>
   
 
