@@ -51,8 +51,14 @@
 <meta property="og:image" content="https://con-quer.github.io/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image.png">
 <meta property="og:image" content="https://con-quer.github.io/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image-1.png">
 <meta property="og:image" content="https://con-quer.github.io/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image-2.png">
+<meta property="og:image" content="https://con-quer.github.io/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image-3.png">
+<meta property="og:image" content="https://con-quer.github.io/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image-4.png">
+<meta property="og:image" content="https://con-quer.github.io/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image-5.png">
+<meta property="og:image" content="https://con-quer.github.io/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image-6.png">
+<meta property="og:image" content="https://con-quer.github.io/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image-7.png">
+<meta property="og:image" content="https://con-quer.github.io/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image-8.png">
 <meta property="article:published_time" content="2026-04-07T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-08T12:28:50.083Z">
+<meta property="article:modified_time" content="2026-04-09T14:05:12.210Z">
 <meta property="article:author" content="cOnQuer">
 <meta property="article:tag" content="-深度学习">
 <meta name="twitter:card" content="summary">
@@ -194,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="sidebar-wrap" data-aos="fade-up">
           <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">计算图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%93%BE%E5%BC%8F%E5%8F%8D%E5%BA%94"><span class="toc-number">2.</span> <span class="toc-text">链式反应</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">简单层实现</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">计算图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%93%BE%E5%BC%8F%E5%8F%8D%E5%BA%94"><span class="toc-number">2.</span> <span class="toc-text">链式反应</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">简单层实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">反向传播实现</span></a></li></ol>
 </div>
 </div>
           <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -266,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="article-date">
   <span class="article-date-link icon-calendar" data-aos="zoom-in">
     <time datetime="2026-04-07T16:00:00.000Z" itemprop="datePublished">2026-04-08</time>
-    <time style="display: none;" id="post-update-time">2026-04-08</time>
+    <time style="display: none;" id="post-update-time">2026-04-09</time>
   </span>
 </div>
 
@@ -297,6 +303,287 @@ document.addEventListener("DOMContentLoaded", function() {
         dy = dout * self.x
 
         return dx,dy
+</code></pre><p><strong>加法层</strong></p>
+<pre><code>class AddLayer:
+    def __init__(self):
+        pass
+    def forward(self, x,y):
+        out = x + y
+        return out
+
+    def backward(self,dout):
+        dx = dout * 1
+        dy = dout * 1
+        return dx, dy
+</code></pre><p><strong>ReLU层</strong></p>
+<pre><code>class Relu:
+    def  __init__(self):
+        self.mask = None
+
+    def forward(self,x):
+        self.mask = (x &lt;= 0)
+        out = x.copy()
+        out[self.mask] = 0
+
+        return out
+
+    def backward(self, dout):
+        dout[self.mask] = 0
+        dx = dout
+
+        return dx
+</code></pre><p><strong>Sigmoid层</strong></p>
+<pre><code>class Sigmoid:
+    def __init__(self):
+        self.out = None
+
+    def forward(self, x):
+        out = 1 / (1 + np.exp(-x))
+        self.out = out
+
+        return out
+
+    def backward(self, dout):
+        dx = dout * (1.0 - self.out) * self.out
+
+        return dx
+</code></pre><p><strong>Affine层</strong><br>神经网络的正向传播中进行的矩阵的乘积运算在几何学领域被称为“仿射变换”<br><img src="/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image-3.png" class="" title="批版本的Affine层的计算图"></p>
+<pre><code>class Affine:
+    def __init__(self, W, b):
+        self.W = W
+        self.b = b
+        self.x = None
+        self.dW = None
+        self.db = None
+
+    def forward(self, x):
+        self.x = x
+        out = np.dot(x, self.W) + self.b
+
+        return out
+
+    def backward(self, dout):
+        dx = np.dot(dout, self.W.T)
+        self.dW = np.dot(self.x.T, dout)
+        self.db = np.sum(dout, axis=0)
+
+        return dx
+</code></pre><p><strong>Softmax-with-Loss层</strong><br>神经网络中进行的处理有推理（inference）和学习两个阶段。神经网络的推理通常不使用 Softmax 层，而是将最后一个 Affine 层的输出作为识别结果。当神经网络的推理只需要给出一个答案的情况下，因为此时只对得分最大值感兴趣，所以不需要 Softmax 层。不过，神经网络的学习阶段则需要 Softmax 层。<br><img src="/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image-4.png" class=""><br>考虑到这里也包含作为损失函数的交叉熵误差（cross entropy error），所以称为“Softmax-with-Loss层”<br><img src="/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image-5.png" class=""><br>简易版：<br><img src="/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/image-6.png" class=""></p>
+<pre><code>class SoftmaxWithLoss:
+    def __init__(self):
+        self.loss = None    # 损失
+        self.y = None       # softmax的输出
+        self.t = None       # 监督数据(one-hot vector)
+
+    def forward(self, x, t):
+        self.t = t
+        self.y = softmax(x)
+        self.loss = cross_entropy_error(self.y, self.t)
+
+        return self.loss
+
+    def backward(self, dout=1):
+        batch_size = self.t.shape[0]
+        dx = (self.y - self.t) / batch_size
+
+        return dx
+</code></pre><h1 id="反向传播实现"><a href="#反向传播实现" class="headerlink" title="反向传播实现"></a>反向传播实现</h1><p><img src="image-7.png" alt="alt text"><br><img src="image-8.png" alt="alt text"><br>将神经网络的层保存为OrderedDict 这一点非常重要。OrderedDict 是有序字典，“有序”是指它可以记住向字典里添加元素的顺序。因此，神经网络的正向传播只需按照添加元素的顺序调用各层的 forward() 方法就可以完成处理，而反向传播只需要按照相反的顺序调用各层即可。</p>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from collections import OrderedDict
+
+class Relu:
+    def  __init__(self):
+        self.mask = None
+
+    def forward(self,x):
+        self.mask = (x &lt;= 0)
+        out = x.copy()
+        out[self.mask] = 0
+
+        return out
+
+    def backward(self, dout):
+        dout[self.mask] = 0
+        dx = dout
+
+        return dx
+
+def cross_entropy_error(y,t):
+    delta = 1e-7
+    return -np.sum(t * np.log(y +  delta))
+
+def softmax(x):
+    c = np.max(x)
+    exp_x = np.exp(x-c)
+    sum_exp_x = np.sum(exp_x)
+    y = exp_x / sum_exp_x
+    return y
+
+class SoftmaxWithLoss:
+    def __init__(self):
+        self.loss = None    # 损失
+        self.y = None       # softmax的输出
+        self.t = None       # 监督数据(one-hot vector)
+
+    def forward(self, x, t):
+        self.t = t
+        self.y = softmax(x)
+        self.loss = cross_entropy_error(self.y, self.t)
+
+        return self.loss
+
+    def backward(self, dout=1):
+        batch_size = self.t.shape[0]
+        dx = (self.y - self.t) / batch_size
+
+        return dx
+
+def numerical_gradient(f,x):
+    h = 1e-4
+    grad = np.zeros_like(x)
+    it = np.nditer(x,flags=[&#39;multi_index&#39;],op_flags=[&#39;readwrite&#39;])
+    while not it.finished:
+        idx = it.multi_index
+        val = x[idx]
+        x[idx] = float(val) + h
+        fxh1 = f(x)
+        x[idx] = val - h
+        fxh2 = f(x)
+        grad[idx] = (fxh1-fxh2) / (2*h)
+        x[idx] = val
+        it.iternext()
+    return grad
+
+class Affine:
+    def __init__(self, W, b):
+        self.W = W
+        self.b = b
+        self.x = None
+        self.dW = None
+        self.db = None
+
+    def forward(self, x):
+        self.x = x
+        out = np.dot(x, self.W) + self.b
+
+        return out
+
+    def backward(self, dout):
+        dx = np.dot(dout, self.W.T)
+        self.dW = np.dot(self.x.T, dout)
+        self.db = np.sum(dout, axis=0)
+
+        return dx
+
+class TwoLayerNet:
+    def __init__(self, input_size, hidden_size, output_size,weight_init_std=0.01):
+    # 初始化权重
+        self.params = &#123;&#125;
+        self.params[&#39;W1&#39;] = weight_init_std * \
+            np.random.randn(input_size, hidden_size)
+        self.params[&#39;b1&#39;] = np.zeros(hidden_size)
+
+        self.params[&#39;W2&#39;] = weight_init_std * \
+        np.random.randn(hidden_size, output_size)
+        self.params[&#39;b2&#39;] = np.zeros(output_size)
+
+        # 生成层
+        self.layers = OrderedDict()
+        self.layers[&#39;Affine1&#39;] = Affine(self.params[&#39;W1&#39;],self.params[&#39;b1&#39;])
+        self.layers[&#39;Relu1&#39;] = Relu()
+        self.layers[&#39;Affine2&#39;] = Affine(self.params[&#39;W2&#39;],self.params[&#39;b2&#39;])
+
+        self.lastlayer = SoftmaxWithLoss()
+
+    def predict(self, x):
+        for layer in self.layers.values():
+            x = layer.forward(x)
+
+        return x
+    # x:输入数据, t:监督数据
+    def loss(self, x, t):
+        y = self.predict(x)
+        return self.lastlayer.forward(y, t)
+
+    def accuracy(self, x, t):
+        y = self.predict(x)
+        y = np.argmax(y, axis=1)
+        if t.ndim !=1 :
+            t = np.argmax(t, axis=1)
+
+        accuracy = np.sum(y == t) / float(x.shape[0])
+        return accuracy
+
+    # x:输入数据, t:监督数据
+    def numerical_gradient(self, x, t):
+        loss_W = lambda W: self.loss(x, t)
+
+        grads = &#123;&#125;
+        grads[&#39;W1&#39;] = numerical_gradient(loss_W, self.params[&#39;W1&#39;])
+        grads[&#39;b1&#39;] = numerical_gradient(loss_W, self.params[&#39;b1&#39;])
+        grads[&#39;W2&#39;] = numerical_gradient(loss_W, self.params[&#39;W2&#39;])
+        grads[&#39;b2&#39;] = numerical_gradient(loss_W, self.params[&#39;b2&#39;])
+
+        return grads
+
+    def gradient(self, x, t):
+        # forward
+        self.loss(x,t)
+
+        # backward
+        dout = 1
+        dout = self.lastlayer.backward(dout)
+
+        layers = list(self.layers.values())
+        layers.reverse()
+        for layer in layers:
+            dout = layer.backward(dout)
+
+        # 设定
+        grads = &#123;&#125;
+        grads[&#39;W1&#39;] = self.layers[&#39;Affine1&#39;].dW
+        grads[&#39;b1&#39;] = self.layers[&#39;Affine1&#39;].db
+        grads[&#39;W2&#39;] = self.layers[&#39;Affine2&#39;].dW
+        grads[&#39;b2&#39;] = self.layers[&#39;Affine2&#39;].db
+
+        return grads
+</code></pre><p><strong>参数更新</strong></p>
+<pre><code>from mnist import load_mnist
+(x_train,y_train),(x_test,y_test) = load_mnist(normalize=True,one_hot_label=True)
+
+network = TwoLayerNet(input_size=784,hidden_size=50,output_size=10)
+
+iters_num = 10000
+train_size = x_train.shape[0]
+batch_size = 100
+learning_rate = 0.1
+train_loss_list = []
+train_acc_list = []
+test_acc_list = []
+
+iter_per_epoch = max(train_size / batch_size, 1)
+
+for i in range(iters_num):
+    batch_mask = np.random.choice(train_size,batch_size)
+    x_batch = x_train[batch_mask]
+    t_batch = y_train[batch_mask]
+
+    ##
+    grad = network.gradient(x_batch, t_batch)
+
+    # 更新
+    for key in (&#39;W1&#39;,&#39;b1&#39;,&#39;W2&#39;,&#39;b2&#39;):
+        network.params[key] -= learning_rate * grad[key]
+
+    loss = network.loss(x_batch, t_batch)
+    train_loss_list.append(loss)
+
+    if i % iter_per_epoch == 0:
+        train_acc = network.accuracy(x_train, y_train)
+        test_acc = network.accuracy(x_test, y_test)
+        train_acc_list.append(train_acc)
+        test_acc_list.append(test_acc)
 </code></pre>
     </div>
     <footer class="article-footer">
@@ -339,10 +626,10 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
       <div>
         <span class="icon-brush"></span>
-        8k
+        9.3k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:42
+        00:50
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -364,7 +651,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <div class="sidebar-wrap">
         <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">计算图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%93%BE%E5%BC%8F%E5%8F%8D%E5%BA%94"><span class="toc-number">2.</span> <span class="toc-text">链式反应</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">简单层实现</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">计算图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%93%BE%E5%BC%8F%E5%8F%8D%E5%BA%94"><span class="toc-number">2.</span> <span class="toc-text">链式反应</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">简单层实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">反向传播实现</span></a></li></ol>
 </div>
 </div>
         <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -492,7 +779,7 @@ document.addEventListener("DOMContentLoaded", function() {
           description: "",
           stripContent: "计算图计算图将计算过程用图形表示出来。这里说的图形是数据结构图，通过多个节点和边表示（连接节点的直线称为“边”）。各个节点处只需进行与自己有关的计算（在这个例子中是对输入的两数字进行加法运算），不用考虑全局。 综上，计算图可以集中精力于局部计算。无论全局的计算有多么复杂，各个步骤所要做的就是对象节点的局部计算。虽然局部计算非常简单，但是通过传递它的计算结果，可以获得全局的复杂计算的结果。 链式反应 如图所示，反向传播的计算顺序是，将信号 E 乘以节点的局部导数 ∂y∂x\frac{\partia",
           date: "Wed Apr 08 2026 00:00:00 GMT+0800",
-          updated: "Wed Apr 08 2026 20:28:50 GMT+0800",
+          updated: "Thu Apr 09 2026 22:05:12 GMT+0800",
           cover: "/images/banner.webp",
         };
       </script>
