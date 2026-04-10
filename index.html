@@ -246,8 +246,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
           <section id="main" aria-label="Main content">      <div class="post-wrapper">
   <div class="post-wrap left" data-aos="fade-up">
-      <a class="post-link" href="/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/" aria-label="深度学习基础-反向传播" title="深度学习基础-反向传播"></a>
+      <a class="post-link" href="/2026/04/10/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%804/" aria-label="深度学习基础-学习优化" title="深度学习基础-学习优化"></a>
     <div class="post-cover left">
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-学习优化" class="lazyload">
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2026-04-10</span>
+        <span><span class="icon-pencil"></span>1.4k 字</span>
+        <span><span class="icon-clock"></span>7 分钟</span>
+      </div>
+      <h2 class="post-title">深度学习基础-学习优化</h2>
+      <article class="post-article">
+          参数更新随机梯度下降法使用参数的梯度，沿梯度方向更新参数，并重复这个步骤多次，从而逐渐靠近最优参数，这个过程称为随机梯度下降法（stochastic gradient descent），简称 SGD
+class SGD:
+    def __init__(self, lr=0.01):
+        self.lr = lr
+
+    def update(self, params, grads):
+        for key in params.keys():
+            paras[key] -= self.lr * grads[key]
+Momentum公式（α=动量系
+      </article>
+    </div>
+  </div>
+</div>
+      <div class="post-wrapper">
+  <div class="post-wrap right" data-aos="fade-up">
+      <a class="post-link" href="/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/" aria-label="深度学习基础-反向传播" title="深度学习基础-反向传播"></a>
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-反向传播" class="lazyload">
     </div>
     <div class="post-info">
@@ -262,39 +289,6 @@ document.addEventListener("DOMContentLoaded", function() {
 综上，计算图可以集中精力于局部计算。无论全局的计算有多么复杂，各个步骤所要做的就是对象节点的局部计算。虽然局部计算非常简单，但是通过传递它的计算结果，可以获得全局的复杂计算的结果。
 链式反应
 如图所示，反向传播的计算顺序是，将信号 E 乘以节点的局部导数 ∂y∂x\frac{\partial y}{\partial x}∂x∂y​，然后将结果传递给下一个节点。这里所说的局部导数是指正向传
-      </article>
-    </div>
-  </div>
-</div>
-      <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
-      <a class="post-link" href="/2026/04/07/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6%E6%BC%94%E7%A4%BA/" aria-label="深度学习基础框架演示" title="深度学习基础框架演示"></a>
-    <div class="post-cover right">
-          <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础框架演示" class="lazyload">
-    </div>
-    <div class="post-info">
-      <div class="post-meta">
-        <span><span class="icon-calendar"></span>2026-04-07</span>
-        <span><span class="icon-pencil"></span>434 字</span>
-        <span><span class="icon-clock"></span>3 分钟</span>
-      </div>
-      <h2 class="post-title">深度学习基础框架演示</h2>
-      <article class="post-article">
-          学习算法的实现两层神经网络框架实现
-import numpy as np
-def softmax(x):
-    exp_x = np.exp(x)
-    sum = np.sum(exp_x)
-    y = exp_x / sum
-    return y
-def sigmoid(x):
-    return 1 / (1+np.exp(-x))
-def relu(x):
-    return np.maximum(0,x)
-def numerical_gradient(f,x):
-    h = 1e-4
-    grad = np.zeros_like(x)
-    it = np.
       </article>
     </div>
   </div>
@@ -539,10 +533,10 @@ def camera():
       </div>
       <div>
         <span class="icon-brush"></span>
-        9.3k
+        10.3k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:50
+        00:54
       </div>
       <div>
         <span class="icon-eye"></span>
