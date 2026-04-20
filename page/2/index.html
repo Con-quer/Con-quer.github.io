@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">12</div>
+    <div class="sidebar-state-number">13</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -246,8 +246,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
           <section id="main" aria-label="Main content">      <div class="post-wrapper">
   <div class="post-wrap left" data-aos="fade-up">
-      <a class="post-link" href="/2026/03/22/%E5%9F%BA%E4%BA%8EOpenCV%E5%92%8CYOLO11%E7%9A%84%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" aria-label="基于OpenCV与YOLO11的实时人脸识别项目" title="基于OpenCV与YOLO11的实时人脸识别项目"></a>
+      <a class="post-link" href="/2026/03/24/OpenCV%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%94%A82/" aria-label="OpenCV进阶运用回顾" title="OpenCV进阶运用回顾"></a>
     <div class="post-cover left">
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV进阶运用回顾" class="lazyload">
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2026-03-24</span>
+        <span><span class="icon-pencil"></span>1k 字</span>
+        <span><span class="icon-clock"></span>5 分钟</span>
+      </div>
+      <h2 class="post-title">OpenCV进阶运用回顾</h2>
+      <article class="post-article">
+          1. 阈值处理 + 滤波去噪常用于文档扫描、车牌识别、零件检测、图像分割等需要简化图像的任务。
+阈值处理：将图像转为黑白二值图，分割前景与背景；滤波去噪：去除图像噪声，平滑图像，提升后续算法精度。
+（1）阈值处理（二值化）
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) 
+
+ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY) #固定阈值二值化：大于127为255(白)，小于等于127则为0(黑)
+（2）滤波去噪|  滤波 | 函数  |功能||—-|—-|—-||均值滤波|cv2
+      </article>
+    </div>
+  </div>
+</div>
+      <div class="post-wrapper">
+  <div class="post-wrap right" data-aos="fade-up">
+      <a class="post-link" href="/2026/03/22/%E5%9F%BA%E4%BA%8EOpenCV%E5%92%8CYOLO11%E7%9A%84%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" aria-label="基于OpenCV与YOLO11的实时人脸识别项目" title="基于OpenCV与YOLO11的实时人脸识别项目"></a>
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="基于OpenCV与YOLO11的实时人脸识别项目" class="lazyload">
     </div>
     <div class="post-info">
@@ -274,9 +299,9 @@ def camera():
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
+  <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/2026/03/20/OpenCV%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%94%A81/" aria-label="OpenCV基础运用回顾" title="OpenCV基础运用回顾"></a>
-    <div class="post-cover right">
+    <div class="post-cover left">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV基础运用回顾" class="lazyload">
     </div>
     <div class="post-info">
@@ -316,10 +341,10 @@ def camera():
       </div>
       <div>
         <span class="icon-brush"></span>
-        12.2k
+        12.4k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        01:03
+        01:04
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -347,7 +372,7 @@ def camera():
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">12</div>
+    <div class="sidebar-state-number">13</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
