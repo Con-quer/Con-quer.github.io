@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">14</div>
+    <div class="sidebar-state-number">15</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -246,8 +246,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
           <section id="main" aria-label="Main content">      <div class="post-wrapper">
   <div class="post-wrap left" data-aos="fade-up">
-      <a class="post-link" href="/2026/04/26/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%807/" aria-label="深度学习基础-经典CNN框架" title="深度学习基础-经典CNN框架"></a>
+      <a class="post-link" href="/2026/04/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B61/" aria-label="深度学习基础-残差网络" title="深度学习基础-残差网络"></a>
     <div class="post-cover left">
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-残差网络" class="lazyload">
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2026-04-28</span>
+        <span><span class="icon-pencil"></span>522 字</span>
+        <span><span class="icon-clock"></span>3 分钟</span>
+      </div>
+      <h2 class="post-title">深度学习基础-残差网络</h2>
+      <article class="post-article">
+          在残差块映射出f(x)−xf(x) - xf(x)−x然后再加上xxx完成映射再输出，强行拉高「原始输入特征」在最终输出里的权重占比，避免多层卷积、非线性变换把浅层原生特征（边缘、纹理、基础轮廓）稀释、覆盖甚至丢失。得注意的是，所谓映射出f(x)−xf(x) - xf(x)−x再加xxx只是理解上来讲，实际映射就是f(x)+xf(x)+xf(x)+x，无需复杂的减法操作
+这是我用numpy模拟实现的残差块，当canchafou为True时，先生成支路的1∗11*11∗1卷积层，再生成主路的卷积块
+def vgg_block(num,num_convs,in_channels,out_chann
+      </article>
+    </div>
+  </div>
+</div>
+      <div class="post-wrapper">
+  <div class="post-wrap right" data-aos="fade-up">
+      <a class="post-link" href="/2026/04/26/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%807/" aria-label="深度学习基础-经典CNN框架" title="深度学习基础-经典CNN框架"></a>
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-经典CNN框架" class="lazyload">
     </div>
     <div class="post-info">
@@ -268,9 +289,9 @@ AlexNetAlexNet是早期真正意义的深层网络
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
+  <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/2026/04/17/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%806/" aria-label="深度学习基础-加深学习" title="深度学习基础-加深学习"></a>
-    <div class="post-cover right">
+    <div class="post-cover left">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-加深学习" class="lazyload">
     </div>
     <div class="post-info">
@@ -290,9 +311,9 @@ A
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap left" data-aos="fade-up">
+  <div class="post-wrap right" data-aos="fade-up">
       <a class="post-link" href="/2026/04/11/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%805/" aria-label="深度学习基础-卷积" title="深度学习基础-卷积"></a>
-    <div class="post-cover left">
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-卷积" class="lazyload">
     </div>
     <div class="post-info">
@@ -311,9 +332,9 @@ A
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
+  <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/2026/04/10/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%804/" aria-label="深度学习基础-学习优化" title="深度学习基础-学习优化"></a>
-    <div class="post-cover right">
+    <div class="post-cover left">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-学习优化" class="lazyload">
     </div>
     <div class="post-info">
@@ -338,9 +359,9 @@ Momentum公式（α=动量
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap left" data-aos="fade-up">
+  <div class="post-wrap right" data-aos="fade-up">
       <a class="post-link" href="/2026/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%803/" aria-label="深度学习基础-反向传播" title="深度学习基础-反向传播"></a>
-    <div class="post-cover left">
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-反向传播" class="lazyload">
     </div>
     <div class="post-info">
@@ -360,9 +381,9 @@ Momentum公式（α=动量
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
+  <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/2026/04/05/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%802/" aria-label="深度学习基础2" title="深度学习基础2"></a>
-    <div class="post-cover right">
+    <div class="post-cover left">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础2" class="lazyload">
     </div>
     <div class="post-info">
@@ -386,9 +407,9 @@ E=−k∑​tk​log(yk​)log 表示以 e 为底数的自然对数（log e）�
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap left" data-aos="fade-up">
+  <div class="post-wrap right" data-aos="fade-up">
       <a class="post-link" href="/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/" aria-label="Python数据挖掘1" title="Python数据挖掘1"></a>
-    <div class="post-cover left">
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="Python数据挖掘1" class="lazyload">
     </div>
     <div class="post-info">
@@ -414,9 +435,9 @@ iris=load_iris(
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
+  <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/2026/04/04/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%801/" aria-label="深度学习基础1" title="深度学习基础1"></a>
-    <div class="post-cover right">
+    <div class="post-cover left">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础1" class="lazyload">
     </div>
     <div class="post-info">
@@ -441,9 +462,9 @@ y={01​(w1​x1​+w2​x2​≤θ)(w1​x1​+w2​x2​&amp;gt;θ)​
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap left" data-aos="fade-up">
+  <div class="post-wrap right" data-aos="fade-up">
       <a class="post-link" href="/2026/04/03/OpenCV%E8%83%8C%E6%99%AF%E5%89%AA%E9%99%A4/" aria-label="OpenCV背景剪除" title="OpenCV背景剪除"></a>
-    <div class="post-cover left">
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV背景剪除" class="lazyload">
     </div>
     <div class="post-info">
@@ -466,32 +487,6 @@ cap = cv2.VideoCapture(0)
 
 # 读取前两帧
 ret, prev_frame
-      </article>
-    </div>
-  </div>
-</div>
-      <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
-      <a class="post-link" href="/2026/04/01/OpenCV%E5%AE%9E%E6%88%98%E8%BF%90%E7%94%A8%E6%80%BB%E7%BB%93/" aria-label="OpenCV实战回顾" title="OpenCV实战回顾"></a>
-    <div class="post-cover right">
-          <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV实战回顾" class="lazyload">
-    </div>
-    <div class="post-info">
-      <div class="post-meta">
-        <span><span class="icon-calendar"></span>2026-04-01</span>
-        <span><span class="icon-pencil"></span>540 字</span>
-        <span><span class="icon-clock"></span>3 分钟</span>
-      </div>
-      <h2 class="post-title">OpenCV实战回顾</h2>
-      <article class="post-article">
-          1. HSV
-作用：把图像信息拆成「色相」+「饱和度」+「明度」 三个独立维度，是最适合做人眼视觉、颜色识别、抗光照处理的颜色空间。
-（1）色相标准范围：0° ~ 360°（像一个颜色圆环）OpenCV 里为了存成 8 位图，压缩成：0 ~ 179
-（2）饱和度范围：0 ~ 255S ≈ 0：灰色、发白、没颜色；S 越大：颜色越鲜艳、越纯（灰度图的S为0）作用：过滤掉灰色背景，只保留鲜艳的彩色区域
-（3）明度范围：0 ~ 255V = 0：纯黑；V = 255：最亮照片的光照变化指挥改变V，H基本不变
-例：
-hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-
       </article>
     </div>
   </div>
@@ -519,10 +514,10 @@ hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
       </div>
       <div>
         <span class="icon-brush"></span>
-        13.5k
+        14.1k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        01:09
+        01:12
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -550,7 +545,7 @@ hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">14</div>
+    <div class="sidebar-state-number">15</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
