@@ -253,14 +253,12 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2026-04-28</span>
-        <span><span class="icon-pencil"></span>522 字</span>
-        <span><span class="icon-clock"></span>3 分钟</span>
+        <span><span class="icon-pencil"></span>920 字</span>
+        <span><span class="icon-clock"></span>5 分钟</span>
       </div>
       <h2 class="post-title">深度学习基础-残差网络</h2>
       <article class="post-article">
-          在残差块映射出f(x)−xf(x) - xf(x)−x然后再加上xxx完成映射再输出，强行拉高「原始输入特征」在最终输出里的权重占比，避免多层卷积、非线性变换把浅层原生特征（边缘、纹理、基础轮廓）稀释、覆盖甚至丢失。得注意的是，所谓映射出f(x)−xf(x) - xf(x)−x再加xxx只是理解上来讲，实际映射就是f(x)+xf(x)+xf(x)+x，无需复杂的减法操作
-这是我用numpy模拟实现的残差块，当canchafou为True时，先生成支路的1∗11*11∗1卷积层，再生成主路的卷积块
-def vgg_block(num,num_convs,in_channels,out_chann
+          余弦退火余弦退火是一种学习率调度策略，借鉴材料科学中 “退火” 概念 —— 先高温加热再缓慢冷却使材料达到稳定状态高温阶段（高学习率）：帮助模型跳出局部最优解，探索广阔参数空间冷却阶段（学习率平滑下降）：使模型平稳接近全局最优，减少震荡学习率变化遵循余弦函数曲线，避免传统阶梯式衰减的生硬突变ηt=ηmin+0.5×(ηmax−ηmin)×(1+cos(π×tT))η_t = η_{min} + 0.5 × (η_{max} - η_{min}) × (1 + cos(π × \frac{t}{T}))ηt​=ηmin​+0.5×(ηmax​−ηmin​)×(1+cos(π×Tt​))代码实现：
       </article>
     </div>
   </div>
@@ -514,10 +512,10 @@ ret, prev_frame
       </div>
       <div>
         <span class="icon-brush"></span>
-        14.1k
+        14.4k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        01:12
+        01:14
       </div>
       <div>
         <span class="icon-eye"></span>

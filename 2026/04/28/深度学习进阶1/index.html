@@ -41,18 +41,21 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="在残差块映射出f(x)−xf(x) - xf(x)−x然后再加上xxx完成映射再输出，强行拉高「原始输入特征」在最终输出里的权重占比，避免多层卷积、非线性变换把浅层原生特征（边缘、纹理、基础轮廓）稀释、覆盖甚至丢失。得注意的是，所谓映射出f(x)−xf(x) - xf(x)−x再加xxx只是理解上来讲，实际映射就是f(x)+xf(x)+xf(x)+x，无需复杂的减法操作 这是我用numpy模拟实现">
+    <meta name="description" content="余弦退火余弦退火是一种学习率调度策略，借鉴材料科学中 “退火” 概念 —— 先高温加热再缓慢冷却使材料达到稳定状态高温阶段（高学习率）：帮助模型跳出局部最优解，探索广阔参数空间冷却阶段（学习率平滑下降）：使模型平稳接近全局最优，减少震荡学习率变化遵循余弦函数曲线，避免传统阶梯式衰减的生硬突变ηt&#x3D;ηmin+0.5×(ηmax−ηmin)×(1+cos(π×tT))η_t &#x3D; η_{min} + 0">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习基础-残差网络">
 <meta property="og:url" content="https://con-quer.github.io/2026/04/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B61/index.html">
 <meta property="og:site_name" content="cOnQuer的个人博客">
-<meta property="og:description" content="在残差块映射出f(x)−xf(x) - xf(x)−x然后再加上xxx完成映射再输出，强行拉高「原始输入特征」在最终输出里的权重占比，避免多层卷积、非线性变换把浅层原生特征（边缘、纹理、基础轮廓）稀释、覆盖甚至丢失。得注意的是，所谓映射出f(x)−xf(x) - xf(x)−x再加xxx只是理解上来讲，实际映射就是f(x)+xf(x)+xf(x)+x，无需复杂的减法操作 这是我用numpy模拟实现">
+<meta property="og:description" content="余弦退火余弦退火是一种学习率调度策略，借鉴材料科学中 “退火” 概念 —— 先高温加热再缓慢冷却使材料达到稳定状态高温阶段（高学习率）：帮助模型跳出局部最优解，探索广阔参数空间冷却阶段（学习率平滑下降）：使模型平稳接近全局最优，减少震荡学习率变化遵循余弦函数曲线，避免传统阶梯式衰减的生硬突变ηt&#x3D;ηmin+0.5×(ηmax−ηmin)×(1+cos(π×tT))η_t &#x3D; η_{min} + 0">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://con-quer.github.io/2026/04/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B61/image.png">
+<meta property="og:image" content="https://con-quer.github.io/2026/04/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B61/image-1.png">
 <meta property="article:published_time" content="2026-04-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-28T10:32:33.260Z">
+<meta property="article:modified_time" content="2026-04-29T14:02:23.175Z">
 <meta property="article:author" content="cOnQuer">
 <meta property="article:tag" content="-深度学习">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://con-quer.github.io/2026/04/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B61/image.png">
     <link rel="alternate" href="/atom.xml" title="cOnQuer的个人博客" type="application/atom+xml">
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -190,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="sidebar-wrap" data-aos="fade-up">
           <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%99%E5%BC%A6%E9%80%80%E7%81%AB"><span class="toc-number">1.</span> <span class="toc-text">余弦退火</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AE%8B%E5%B7%AE%E5%9D%97"><span class="toc-number">2.</span> <span class="toc-text">残差块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%84%8F%E5%A4%96"><span class="toc-number">3.</span> <span class="toc-text">训练意外</span></a></li></ol>
 </div>
 </div>
           <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -262,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="article-date">
   <span class="article-date-link icon-calendar" data-aos="zoom-in">
     <time datetime="2026-04-27T16:00:00.000Z" itemprop="datePublished">2026-04-28</time>
-    <time style="display: none;" id="post-update-time">2026-04-28</time>
+    <time style="display: none;" id="post-update-time">2026-04-29</time>
   </span>
 </div>
 
@@ -271,7 +274,15 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="hr-line"></div>
     
     <div class="e-content article-entry" itemprop="articleBody">
-        <p>在残差块映射出<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">f(x) - x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>然后再加上<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>完成映射再输出，强行拉高「原始输入特征」在最终输出里的权重占比，避免多层卷积、非线性变换把浅层原生特征（边缘、纹理、基础轮廓）稀释、覆盖甚至丢失。<br><br>得注意的是，所谓映射出<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">f(x) - x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>再加<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>只是理解上来讲，实际映射就是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">f(x)+x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>，无需复杂的减法操作</p>
+        <h1 id="余弦退火"><a href="#余弦退火" class="headerlink" title="余弦退火"></a>余弦退火</h1><p>余弦退火是一种学习率调度策略，借鉴材料科学中 “退火” 概念 —— 先高温加热再缓慢冷却使材料达到稳定状态<br>高温阶段（高学习率）：帮助模型跳出局部最优解，探索广阔参数空间<br>冷却阶段（学习率平滑下降）：使模型平稳接近全局最优，减少震荡<br>学习率变化遵循余弦函数曲线，避免传统阶梯式衰减的生硬突变<br><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>η</mi><mi>t</mi></msub><mo>=</mo><msub><mi>η</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub><mo>+</mo><mn>0.5</mn><mo>×</mo><mo stretchy="false">(</mo><msub><mi>η</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><mo>−</mo><msub><mi>η</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub><mo stretchy="false">)</mo><mo>×</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>c</mi><mi>o</mi><mi>s</mi><mo stretchy="false">(</mo><mi>π</mi><mo>×</mo><mfrac><mi>t</mi><mi>T</mi></mfrac><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">η_t = η_{min} + 0.5 × (η_{max} - η_{min}) × (1 + cos(π × \frac{t}{T}))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">η</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">η</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0.5</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">η</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">η</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">cos</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.9781em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.2921em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">T</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">))</span></span></span></span></span><br>代码实现：</p>
+<pre><code>def cosine_annealing(current_epoch, epochs, lr_max, lr_min):
+
+    cosine = np.cos(np.pi * current_epoch / epochs)
+    lr = lr_min + 0.5 * (lr_max - lr_min) * (1 + cosine)
+    return lr
+
+optimizer.lr = cosine_annealing(current_epoch, epochs, lr_max, lr_min)
+</code></pre><h1 id="残差块"><a href="#残差块" class="headerlink" title="残差块"></a>残差块</h1><p>在残差块映射出<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">f(x) - x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>然后再加上<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>完成映射再输出，强行拉高「原始输入特征」在最终输出里的权重占比，避免多层卷积、非线性变换把浅层原生特征（边缘、纹理、基础轮廓）稀释、覆盖甚至丢失。<br><img src="/2026/04/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B61/image.png" class="" title="正常块（左）残差块（右）"><br>得注意的是，所谓映射出<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">f(x) - x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>再加<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>只是理解上来讲，实际映射就是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">f(x)+x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>，无需复杂的减法操作</p>
 <p>这是我用numpy模拟实现的残差块，当canchafou为True时，先生成支路的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>∗</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1*1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>卷积层，再生成主路的卷积块</p>
 <pre><code>def vgg_block(num,num_convs,in_channels,out_channels,canchafou,stride = 1):
     if canchafou:
@@ -279,12 +290,12 @@ document.addEventListener("DOMContentLoaded", function() {
         conv_name = f&quot;conv_&#123;num&#125;_res&quot;
 
         conv = Convolution(in_channels=in_channels,out_channels=out_channels,
-                                                kernel_size=1,stride=stride,res=False)
+                                                kernel_size=1,stride=stride,
+                                                res=True,if_res_num_conv=num_convs)
 
         total_layers.append(conv)
 
         to_name_layers[conv_name] = conv
-        in_channels = out_channels
     for i in range(num_convs):
 
             conv_name = f&quot;conv&#123;num&#125;_&#123;i&#125;&quot;
@@ -295,6 +306,8 @@ document.addEventListener("DOMContentLoaded", function() {
                                                     kernel_size=3,pad=1,stride=1)
             bn = BatchNorm2d(out_channels)
             relu = Relu()
+            if i == num_convs - 1:
+                bn.res = True
 
             total_layers.append(conv)
             total_layers.append(bn)
@@ -305,9 +318,6 @@ document.addEventListener("DOMContentLoaded", function() {
             to_name_layers[relu_name] = relu
 
             in_channels = out_channels
-
-
-
     pool_name = f&quot;pool&#123;num&#125;&quot;
     pool = (Pooling(stride=2,pool_h=2,pool_w=2))
     total_layers.append(pool)
@@ -317,8 +327,8 @@ document.addEventListener("DOMContentLoaded", function() {
     skip = -1
     for layer in self.layers:
         if isinstance(layer,Convolution):
-
             if layer.res == True:
+                #self.temp_of_conv_num = layer.if_res_num_conv
                 skip = 5
                 self.res = layer.forward(x)
                 continue
@@ -334,37 +344,44 @@ document.addEventListener("DOMContentLoaded", function() {
             skip = -1
             self.res = None
             layer.res = True
+            #layer.if_res_num_conv = self.temp_of_conv_num
 
         if isinstance(layer,(BatchNorm2d,Dropout)):
             x= layer.forward(x,train_flg)
         else:
             x = layer.forward(x)
-
     return x
 
 def backward(self, dout=1):
+    dout = self.last_layer.backward(dout)
     skip = -1
-    # 逆序遍历层（反向标准操作）
+    self.res_dout = None 
+
     for layer in reversed(self.layers):
-        # ====================== 核心修正 ======================
-        # 逆序：遇到 ReLU → 启动 skip=5（和前向Conv启动完全对称）
-        # 这就是你说的：从块的最后一个ReLU开始！
-        if isinstance(layer, BatchNorm2d) and layer.res == True:  # 你用的ReLU层判断
-            skip = 4
+
+        if isinstance(layer, BatchNorm2d) and layer.res == True:
+            skip = 4  
+            self.res_dout = dout
 
         if skip &gt; 0:
             skip -= 1
             dout = layer.backward(dout)
             continue
 
-        elif skip == 0:
-            dout += self.res
+        elif isinstance(layer, Convolution) and layer.res == True:
 
-        # 普通层正常反向
+            shortcut_dout = layer.backward(self.res_dout)
+            dout += shortcut_dout
+            skip = -1
+            continue
+
         dout = layer.backward(dout)
 
     return dout
-</code></pre>
+</code></pre><h1 id="训练意外"><a href="#训练意外" class="headerlink" title="训练意外"></a>训练意外</h1><p>这是我在用单个两层卷积的残差块训练的MNIST-10手写数字集模型，训练出现了意外的结果<br><img src="/2026/04/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B61/image-1.png" class=""><br>图像显示训练中训练集和测试集的精度突然一起快速下降，而损失却几乎不变<br>再分析后得出结论：</p>
+<p>1.损失的图像是 matplotlib 绘图的「数量级视觉欺骗」， Loss曲线不是不动，是「初始 Loss 太大，把 Y 轴尺度拉得太宽」，后期微小的 Loss 变化被完全压缩，肉眼看起来像一条平线</p>
+<p>2.断崖式下降则是因为浅网络参数少、结构简单，随机初始化的权重，碰巧拟合了数据的「表面噪声 / 简单巧合」，而不是真正学到数据的核心特征，即伪收敛。</p>
+
     </div>
     <footer class="article-footer">
         <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E5%9B%9E%E9%A1%BE/" title="学习回顾" data-aos="zoom-in">学习回顾</a>
@@ -406,10 +423,10 @@ def backward(self, dout=1):
       </div>
       <div>
         <span class="icon-brush"></span>
-        14.1k
+        14.4k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        01:12
+        01:14
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -431,7 +448,7 @@ def backward(self, dout=1):
   <div class="sidebar-wrap">
         <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%99%E5%BC%A6%E9%80%80%E7%81%AB"><span class="toc-number">1.</span> <span class="toc-text">余弦退火</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AE%8B%E5%B7%AE%E5%9D%97"><span class="toc-number">2.</span> <span class="toc-text">残差块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%84%8F%E5%A4%96"><span class="toc-number">3.</span> <span class="toc-text">训练意外</span></a></li></ol>
 </div>
 </div>
         <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -557,9 +574,9 @@ def backward(self, dout=1):
           url: "https://con-quer.github.io/2026/04/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B61/",
           excerpt: "",
           description: "",
-          stripContent: "在残差块映射出f(x)−xf(x) - xf(x)−x然后再加上xxx完成映射再输出，强行拉高「原始输入特征」在最终输出里的权重占比，避免多层卷积、非线性变换把浅层原生特征（边缘、纹理、基础轮廓）稀释、覆盖甚至丢失。得注意的是，所谓映射出f(x)−xf(x) - xf(x)−x再加xxx只是理解上来讲，实际映射就是f(x)+xf(x)+xf(x)+x，无需复杂的减法操作 这是我用numpy模拟实现的残差块，当canchafou为True时，先生成支路的1∗11*11∗1卷积层，再生成主路的卷积块",
+          stripContent: "余弦退火余弦退火是一种学习率调度策略，借鉴材料科学中 “退火” 概念 —— 先高温加热再缓慢冷却使材料达到稳定状态高温阶段（高学习率）：帮助模型跳出局部最优解，探索广阔参数空间冷却阶段（学习率平滑下降）：使模型平稳接近全局最优，减少震荡学习率变化遵循余弦函数曲线，避免传统阶梯式衰减的生硬突变ηt=ηmin+0.5×(ηmax−ηmin)×(1+cos(π×tT))η_t = η_{min} + 0.5 × (η_{max} - η_{min}) × (1 + cos(π × \frac{t}{T",
           date: "Tue Apr 28 2026 00:00:00 GMT+0800",
-          updated: "Tue Apr 28 2026 18:32:33 GMT+0800",
+          updated: "Wed Apr 29 2026 22:02:23 GMT+0800",
           cover: "/images/banner.webp",
         };
       </script>
