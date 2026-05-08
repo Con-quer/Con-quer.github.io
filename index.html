@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">15</div>
+    <div class="sidebar-state-number">17</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -245,6 +245,50 @@ document.addEventListener("DOMContentLoaded", function() {
 </aside>
 
           <section id="main" aria-label="Main content">      <div class="post-wrapper">
+  <div class="post-wrap left" data-aos="fade-up">
+      <a class="post-link" href="/2026/05/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B63/" aria-label="深度学习基础-DenseNet" title="深度学习基础-DenseNet"></a>
+    <div class="post-cover left">
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-DenseNet" class="lazyload">
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2026-05-09</span>
+        <span><span class="icon-pencil"></span>145 字</span>
+        <span><span class="icon-clock"></span>1 分钟</span>
+      </div>
+      <h2 class="post-title">深度学习基础-DenseNet</h2>
+      <article class="post-article">
+          DenseNet在某种程度上是ResNet的逻辑扩展。
+稠密连接任意函数的泰勒展开式，它把这个函数分解成越来越高阶的项。在接近0时：f(x)=f(0)+f′(0)x+f′′(0)2!x2+f′′′(0)3!x3+....f(x)=f(0)+f&amp;#x27;(0)x+\frac{f&amp;#x27;&amp;#x27;(0)}{2!}x^2+\frac{f&amp;#x27;&amp;#x27;&amp;#x27;(0)}{3!}x^3+....f(x)=f(0)+f′(0)x+2!f′′(0)​x2+3!f′′′(0)​x3+....ResNet的展开为两部分：一个简单的线性项和一个复杂的非线性项：f(x)=x+g(x)f(x) =
+      </article>
+    </div>
+  </div>
+</div>
+      <div class="post-wrapper">
+  <div class="post-wrap right" data-aos="fade-up">
+      <a class="post-link" href="/2026/05/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B62/" aria-label="深度学习基础-ResNet" title="深度学习基础-ResNet"></a>
+    <div class="post-cover right">
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-ResNet" class="lazyload">
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2026-05-08</span>
+        <span><span class="icon-pencil"></span>462 字</span>
+        <span><span class="icon-clock"></span>3 分钟</span>
+      </div>
+      <h2 class="post-title">深度学习基础-ResNet</h2>
+      <article class="post-article">
+          残差块ResNet使用4个由残差块组成的模块，每个模块使用若干个同样输出通道数的残差块。 第一个模块的通道数同输入通道数一致。 由于之前已经使用了步幅为2的最大汇聚层，所以无须减小高和宽。 之后的每个模块在第一个残差块里将上一个模块的通道数翻倍，并将高和宽减半。
+class Residual(nn.Module):  
+    def __init__(self, input_channels, num_channels,
+                use_1x1conv=False, strides=1):
+        super().__init__()
+        self
+      </article>
+    </div>
+  </div>
+</div>
+      <div class="post-wrapper">
   <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/2026/04/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B61/" aria-label="深度学习基础-残差网络" title="深度学习基础-残差网络"></a>
     <div class="post-cover left">
@@ -432,63 +476,6 @@ iris=load_iris(
     </div>
   </div>
 </div>
-      <div class="post-wrapper">
-  <div class="post-wrap left" data-aos="fade-up">
-      <a class="post-link" href="/2026/04/04/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%801/" aria-label="深度学习基础1" title="深度学习基础1"></a>
-    <div class="post-cover left">
-          <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础1" class="lazyload">
-    </div>
-    <div class="post-info">
-      <div class="post-meta">
-        <span><span class="icon-calendar"></span>2026-04-04</span>
-        <span><span class="icon-pencil"></span>691 字</span>
-        <span><span class="icon-clock"></span>4 分钟</span>
-      </div>
-      <h2 class="post-title">深度学习基础1</h2>
-      <article class="post-article">
-          感知机感知机接收多个输入信号，输出一个信号。
-y={0(w1x1+w2x2≤θ)1(w1x1+w2x2&amp;gt;θ)
-y=\begin{cases}
-0 &amp;amp; (w_1x_1+w_2x_2 \leq \theta)\\
-1 &amp;amp; (w_1x_1+w_2x_2 &amp;gt; \theta)
-\end{cases}
-y={01​(w1​x1​+w2​x2​≤θ)(w1​x1​+w2​x2​&amp;gt;θ)​
-感知机的多个输入信号都有各自固有的权重，这些权重发挥着控制各个信号的重要性的作用。权重越大，对应该权重的信号的重要性就越高。
-单层感知机只能表示线性空间，而多层感知机可以表示非线性空间。使用
-      </article>
-    </div>
-  </div>
-</div>
-      <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
-      <a class="post-link" href="/2026/04/03/OpenCV%E8%83%8C%E6%99%AF%E5%89%AA%E9%99%A4/" aria-label="OpenCV背景剪除" title="OpenCV背景剪除"></a>
-    <div class="post-cover right">
-          <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV背景剪除" class="lazyload">
-    </div>
-    <div class="post-info">
-      <div class="post-meta">
-        <span><span class="icon-calendar"></span>2026-04-03</span>
-        <span><span class="icon-pencil"></span>995 字</span>
-        <span><span class="icon-clock"></span>5 分钟</span>
-      </div>
-      <h2 class="post-title">OpenCV背景剪除</h2>
-      <article class="post-article">
-          一.帧差法帧差法（Frame Difference Method）是 OpenCV 中一种简单高效的运动目标检测技术，属于背景减除（Background Subtraction）的基础方法之一，通过计算视频序列中连续帧之间的像素差异来识别和定位场景中的动态对象。
-数学模型：
- D(t) = | I(t) − I(t-1) |
-I(t)：当前帧灰度图像I(t-1)：前一帧灰度图像D(t)：差分结果图（像素差值绝对值）
-import cv2
-import numpy as np
-
-# 初始化摄像头
-cap = cv2.VideoCapture(0)
-
-# 读取前两帧
-ret, prev_frame
-      </article>
-    </div>
-  </div>
-</div>
   <nav id="page-nav" aria-label="Pagination navigation" data-aos="fade-up">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
@@ -512,10 +499,10 @@ ret, prev_frame
       </div>
       <div>
         <span class="icon-brush"></span>
-        14.4k
+        15.1k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        01:14
+        01:18
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -543,7 +530,7 @@ ret, prev_frame
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">15</div>
+    <div class="sidebar-state-number">17</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>

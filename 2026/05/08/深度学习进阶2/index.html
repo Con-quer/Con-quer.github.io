@@ -33,7 +33,7 @@
   
   <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_a0oqhord1y';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://Con-quer.github.io';</script>
   <title>
-    基于OpenCV与YOLO11的实时人脸识别项目 | cOnQuer的个人博客
+    深度学习基础-ResNet | cOnQuer的个人博客
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media='all'">
@@ -41,20 +41,21 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="该项目基于OpenCV内置的目标检测功能和YOLO的人脸识别功能我将以机器学习的基本的三个环节，分板块执行：get_picture.py——准备数据train.py—————训练模型start.py—————开始识别 获取图片需要导入的库如下： import cv2 import os import tkinter as tk from tkinter import simpledialog im">
+    <meta name="description" content="残差块ResNet使用4个由残差块组成的模块，每个模块使用若干个同样输出通道数的残差块。 第一个模块的通道数同输入通道数一致。 由于之前已经使用了步幅为2的最大汇聚层，所以无须减小高和宽。 之后的每个模块在第一个残差块里将上一个模块的通道数翻倍，并将高和宽减半。 class Residual(nn.Module):       def __init__(self, input_channels,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于OpenCV与YOLO11的实时人脸识别项目">
-<meta property="og:url" content="https://con-quer.github.io/2026/03/22/%E5%9F%BA%E4%BA%8EOpenCV%E5%92%8CYOLO11%E7%9A%84%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/index.html">
+<meta property="og:title" content="深度学习基础-ResNet">
+<meta property="og:url" content="https://con-quer.github.io/2026/05/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B62/index.html">
 <meta property="og:site_name" content="cOnQuer的个人博客">
-<meta property="og:description" content="该项目基于OpenCV内置的目标检测功能和YOLO的人脸识别功能我将以机器学习的基本的三个环节，分板块执行：get_picture.py——准备数据train.py—————训练模型start.py—————开始识别 获取图片需要导入的库如下： import cv2 import os import tkinter as tk from tkinter import simpledialog im">
+<meta property="og:description" content="残差块ResNet使用4个由残差块组成的模块，每个模块使用若干个同样输出通道数的残差块。 第一个模块的通道数同输入通道数一致。 由于之前已经使用了步幅为2的最大汇聚层，所以无须减小高和宽。 之后的每个模块在第一个残差块里将上一个模块的通道数翻倍，并将高和宽减半。 class Residual(nn.Module):       def __init__(self, input_channels,">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-03-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-24T03:19:51.807Z">
+<meta property="og:image" content="https://con-quer.github.io/2026/05/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B62/image.png">
+<meta property="og:image" content="https://con-quer.github.io/2026/05/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B62/image-1.png">
+<meta property="article:published_time" content="2026-05-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-08T13:43:53.136Z">
 <meta property="article:author" content="cOnQuer">
-<meta property="article:tag" content="OpenCV">
-<meta property="article:tag" content="YOLO11">
-<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="-深度学习">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://con-quer.github.io/2026/05/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B62/image.png">
     <link rel="alternate" href="/atom.xml" title="cOnQuer的个人博客" type="application/atom+xml">
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -153,11 +154,11 @@
 <header id="header" aria-label="Site header">
         <picture>
         </picture>
-          <img id="random-banner"  fetchpriority="high" src="/images/banner.webp" alt="基于OpenCV与YOLO11的实时人脸识别项目">
+          <img id="random-banner"  fetchpriority="high" src="/images/banner.webp" alt="深度学习基础-ResNet">
   <div id="header-outer">
     <div id="header-title">
           <span id="logo">
-            <h1 data-aos="slide-up">基于OpenCV与YOLO11的实时人脸识别项目</h1>
+            <h1 data-aos="slide-up">深度学习基础-ResNet</h1>
           </span>
         <h2 id="subtitle-wrap" data-aos="slide-down">
         </h2>
@@ -192,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="sidebar-wrap" data-aos="fade-up">
           <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AE%8B%E5%B7%AE%E5%9D%97"><span class="toc-number">1.</span> <span class="toc-text">残差块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ResNet-18"><span class="toc-number">2.</span> <span class="toc-text">ResNet-18</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%95%88%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">训练效果</span></a></li></ol>
 </div>
 </div>
           <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -258,13 +259,13 @@ document.addEventListener("DOMContentLoaded", function() {
   </div>
 </aside>
 
-          <section id="main" aria-label="Main content"><article id="post-基于OpenCV和YOLO11的实时人脸识别" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
+          <section id="main" aria-label="Main content"><article id="post-深度学习进阶2" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner" data-aos="fade-up">
     <div class="article-meta">
       <div class="article-date">
   <span class="article-date-link icon-calendar" data-aos="zoom-in">
-    <time datetime="2026-03-21T16:00:00.000Z" itemprop="datePublished">2026-03-22</time>
-    <time style="display: none;" id="post-update-time">2026-03-24</time>
+    <time datetime="2026-05-07T16:00:00.000Z" itemprop="datePublished">2026-05-08</time>
+    <time style="display: none;" id="post-update-time">2026-05-08</time>
   </span>
 </div>
 
@@ -273,175 +274,80 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="hr-line"></div>
     
     <div class="e-content article-entry" itemprop="articleBody">
-        <p>该项目基于OpenCV内置的目标检测功能和YOLO的人脸识别功能<br>我将以机器学习的基本的三个环节，分板块执行：<br>get_picture.py——准备数据<br>train.py—————训练模型<br>start.py—————开始识别</p>
-<p><strong>获取图片</strong><br>需要导入的库如下：</p>
-<pre><code>import cv2
-import os
-import tkinter as tk
-from tkinter import simpledialog
-import shutil
-</code></pre><p>定义camera：打开摄像头并初始化，分辨率以一般笔记本的标准 1280*720。</p>
-<pre><code>def camera():
-    cap = cv2.VideoCapture(0)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
-
-    if not cap.isOpened():
-        print(&quot;can&#39;t open the webcam&quot;)
-        cap.release()
-        exit()
-    return cap
-</code></pre><p>定义path：创建所需路径和文件夹，train为训练集图片的位置，val为验证集图片的位置</p>
-<pre><code>def path():
-    root_dir = &quot;dataset&quot;
-    face_train = os.path.join(root_dir, &quot;train&quot;)
-    face_val = os.path.join(root_dir, &quot;val&quot;)
-    os.makedirs(face_train, exist_ok=True)
-    os.makedirs(face_val, exist_ok=True)
-    return face_train,face_val
-</code></pre><p>定义name：弹出窗口输入个人信息，即图片的标注（输入后才能继续，避免出现文件路径混乱）</p>
-<pre><code>def name(face_train):
-    root = tk.Tk()
-    root.withdraw()
-    user_name = &quot;&quot;
-    while True:
-        user_name = simpledialog.askstring(&quot;命名&quot;, &quot;请输入姓名&quot;)
-        if user_name is None:
-            exit()
-        elif user_name.strip() == &quot;&quot;:
-            print(&quot;请输入姓名&quot;)
-            continue
+        <h1 id="残差块"><a href="#残差块" class="headerlink" title="残差块"></a>残差块</h1><p>ResNet使用4个由残差块组成的模块，每个模块使用若干个同样输出通道数的残差块。 第一个模块的通道数同输入通道数一致。 由于之前已经使用了步幅为2的最大汇聚层，所以无须减小高和宽。 之后的每个模块在第一个残差块里将上一个模块的通道数翻倍，并将高和宽减半。</p>
+<pre><code>class Residual(nn.Module):  
+    def __init__(self, input_channels, num_channels,
+                use_1x1conv=False, strides=1):
+        super().__init__()
+        self.conv1 = nn.Conv2d(input_channels, num_channels,
+                            kernel_size=3, padding=1, stride=strides)
+        self.conv2 = nn.Conv2d(num_channels, num_channels,
+                            kernel_size=3, padding=1)
+        if use_1x1conv:
+            self.conv3 = nn.Conv2d(input_channels, num_channels,
+                                kernel_size=1, stride=strides)
         else:
-            user_name = user_name.strip()
-            break
+            self.conv3 = None
+        self.bn1 = nn.BatchNorm2d(num_channels)
+        self.bn2 = nn.BatchNorm2d(num_channels)
 
-    user_face_dir = os.path.join(face_train, user_name)
-    os.makedirs(user_face_dir, exist_ok=True)
-    return user_face_dir,user_name
-</code></pre><p>定义detect：按下s保存摄像头图片后，使用OpenCV内置目标检测器CascadeClassifier实现人脸目标检测，并裁剪出人脸的图片。根据裁剪位置信息，先复制摄像头原图片文件再裁剪，可以避免rectangle绘制的识别框被裁入，降低杂乱数据干扰。</p>
-<pre><code>def detect(cap,user_face_dir):
-    face_counter = 0
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + &#39;haarcascade_frontalface_default.xml&#39;)
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            break
+    def forward(self, X):
+        Y = F.relu(self.bn1(self.conv1(X)))
+        Y = self.bn2(self.conv2(Y))
+        if self.conv3:
+            X = self.conv3(X)
+        Y += X
+        return F.relu(Y)
+</code></pre><p>实现模块生成：（对第一个模块做了特别处理）</p>
+<pre><code>b1 = nn.Sequential(nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3),
+               nn.BatchNorm2d(64), nn.ReLU(),
+               nn.MaxPool2d(kernel_size=3, stride=2, padding=1))
 
-        #人脸检测
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+def resnet_block(input_channels, num_channels, num_residuals,
+                first_block=False):
+    blk = []
+    for i in range(num_residuals):
+        if i == 0 and not first_block:
+            blk.append(Residual(input_channels, num_channels,
+                                use_1x1conv=True, strides=2))
+        else:
+            blk.append(Residual(num_channels, num_channels))
+    return blk
 
-        origin_frame=frame.copy()     #防止绿框被截取
-
-        #绘制人脸框
-        for (x, y, w, h) in faces:
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
-        cv2.imshow(&#39;Webcam&#39;, frame)
-        k = cv2.waitKey(1)
-
-        # ESC退出
-        if k % 256 == 27:
-            print(&quot;Escape hit closing&quot;)
-            break
-
-        elif k % 256 == ord(&#39;s&#39;):      #按s保存人脸裁剪图（最好不少与20张）
-            if len(faces) &gt; 0:
-                x, y, w, h = faces[0]
-                face_crop = origin_frame[y:y+h, x:x+w]
-                face_name = os.path.join(user_face_dir, f&quot;face_{face_counter}.png&quot;)
-                cv2.imwrite(face_name, face_crop)
-                print(f&quot;人脸保存: {face_name}&quot;)
-                face_counter += 1
-</code></pre><p>定义split：数据分类函数，将保存在train里面的图片文件，按比例转移到val文件夹。比例可根据数据量具体更改，此处用0.2。</p>
-<pre><code>def split(face_train,face_val, user_name):
-    current_train = os.path.join(face_train, user_name)
-    current_val = os.path.join(face_val, user_name)
-    os.makedirs(current_val, exist_ok=True)
-
-    val_images = [f for f in os.listdir(current_val) if f.endswith((&#39;png&#39;,&#39;jpg&#39;,&#39;jpeg&#39;))]
-
-    if len(val_images) &gt; 0:
-        return
-
-    img_list = [f for f in os.listdir(current_train) if f.endswith((&#39;png&#39;,&#39;jpg&#39;,&#39;jpeg&#39;))]
-    total = len(img_list)
-
-    if total == 0:
-        return
-
-    split_num = max(1, int(total * 0.2)) #比例为0.2
-    for img in img_list[:split_num]:
-        shutil.move(os.path.join(current_train, img), os.path.join(current_val, img))
-</code></pre><p>最后使用release和destroyAllWindows函数释放内存，至此数据准备完毕。</p>
-<pre><code>cap=camera()
-face_train,face_val=path()
-user_face_dir,user_name = name(face_train)
-detect(cap,user_face_dir)
-split(face_train,face_val,user_name)
-cap.release()
-cv2.destroyAllWindows()
-</code></pre><p><strong>开始训练</strong><br>使用适合人脸检测的yolo11n-cls模型训练，根据电脑处理器选择device，此处使用cpu。<br>训练完成后就会将结果保存至run/runs/classify/face_recognize/weights</p>
-<pre><code>from ultralytics import YOLO
-
-model = YOLO(&quot;yolo11n-cls.pt&quot;)
-
-model.train(
-    data=&quot;./dataset&quot;,    
-    epochs=30,
-    imgsz=224,
-    batch=4, 
-    device=&quot;cpu&quot;,
-    name=&quot;face_recognize&quot;,
-    val=True
-    )    
-</code></pre><p><strong>开始识别</strong><br>模型选择best.pt文件，打开摄像头开始人脸识别，识别出的分数会打印在窗口左上角。</p>
-<pre><code>from ultralytics import YOLO
-import cv2
-import os
-
-model = YOLO(&quot;runs/classify/face_recognize/weights/best.pt&quot;)
-
-cap = cv2.VideoCapture(0)
-
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        break
-
-    results = model(frame)
-    cv2.imshow(&quot;人脸识别&quot;, results[0].plot())
-
-    if cv2.waitKey(1) == 27:
-        break
-
-cap.release()
-cv2.destroyAllWindows()
-</code></pre><p>  <strong>总结</strong><br>本项目基于 OpenCV 与 YOLO 算法实现基础视觉应用，整体代码简洁轻量化。依托 YOLO 算法的高效特性，项目仅通过极简代码便实现了优异的目标识别效果。目前项目仍存在可优化方向：摄像头采集的图像清晰度不足、数据处理流程有待精细化，同时还存在异常图片数据需手动清理的缺陷。通过本次实战开发，我对 OpenCV 与 YOLO 两项技术的理论认知与工程实践能力均得到了显著提升。</p>
+b2 = nn.Sequential(*resnet_block(64, 64, 2, first_block=True))
+b3 = nn.Sequential(*resnet_block(64, 128, 2))
+b4 = nn.Sequential(*resnet_block(128, 256, 2))
+b5 = nn.Sequential(*resnet_block(256, 512, 2))
+</code></pre><h1 id="ResNet-18"><a href="#ResNet-18" class="headerlink" title="ResNet-18"></a>ResNet-18</h1><p>每个模块有4个卷积层（不包括恒等映射的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1×1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>卷积层）。 加上第一个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mo>×</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">7×7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">7</span></span></span></span>卷积层和最后一个全连接层，共有18层。 因此，这种模型通常被称为ResNet-18<br><img src="/2026/05/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B62/image.png" class=""></p>
+<pre><code>net = nn.Sequential(b1, b2, b3, b4, b5,
+                    nn.AdaptiveAvgPool2d((1,1)),
+                    nn.Flatten(), nn.Linear(512, 10))
+</code></pre><p>通过配置不同的通道数和模块里的残差块数可以得到不同的ResNet模型，例如更深的含152层的ResNet-152</p>
+<h1 id="训练效果"><a href="#训练效果" class="headerlink" title="训练效果"></a>训练效果</h1><p>用ResNet-18训练cifar-10数据集<br>最终train : 0.99796 ; test : 0.9324 ; loss : 0.00005<br><img src="/2026/05/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B62/image-1.png" class=""></p>
 
     </div>
     <footer class="article-footer">
-        <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E9%A1%B9%E7%9B%AE/" title="技术项目" data-aos="zoom-in">技术项目</a>
+        <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E5%9B%9E%E9%A1%BE/" title="学习回顾" data-aos="zoom-in">学习回顾</a>
 
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/OpenCV/" rel="tag" title="OpenCV">OpenCV</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/YOLO11/" rel="tag" title="YOLO11">YOLO11</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag" title="计算机视觉">计算机视觉</a></li></ul>
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag" title="-深度学习">-深度学习</a></li></ul>
 
     </footer>
   </div>
     <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
       <div class="article-nav-link-wrap left">
-            <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV进阶运用回顾" class="lazyload">
-        <a href="/2026/03/24/OpenCV%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%94%A82/" aria-label="前一篇: OpenCV进阶运用回顾" title="前一篇: OpenCV进阶运用回顾"></a>
+            <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-DenseNet" class="lazyload">
+        <a href="/2026/05/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B63/" aria-label="前一篇: 深度学习基础-DenseNet" title="前一篇: 深度学习基础-DenseNet"></a>
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">
-            OpenCV进阶运用回顾
+            深度学习基础-DenseNet
         </h3>
       </div>
     <div class="article-nav-link-wrap right">
-          <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV基础运用回顾" class="lazyload">
-      <a href="/2026/03/20/OpenCV%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%94%A81/" aria-label="后一篇: OpenCV基础运用回顾"  title="后一篇: OpenCV基础运用回顾"></a>
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-残差网络" class="lazyload">
+      <a href="/2026/04/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B61/" aria-label="后一篇: 深度学习基础-残差网络"  title="后一篇: 深度学习基础-残差网络"></a>
       <div class="article-nav-caption">后一篇</div>
       <h3 class="article-nav-title">
-          OpenCV基础运用回顾
+          深度学习基础-残差网络
       </h3>
     </div>
   </nav>
@@ -493,7 +399,7 @@ cv2.destroyAllWindows()
   <div class="sidebar-wrap">
         <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AE%8B%E5%B7%AE%E5%9D%97"><span class="toc-number">1.</span> <span class="toc-text">残差块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ResNet-18"><span class="toc-number">2.</span> <span class="toc-text">ResNet-18</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%95%88%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">训练效果</span></a></li></ol>
 </div>
 </div>
         <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -615,13 +521,13 @@ cv2.destroyAllWindows()
       <script data-pjax>
         window.REIMU_POST = {
           author: "cOnQuer",
-          title: "基于OpenCV与YOLO11的实时人脸识别项目",
-          url: "https://con-quer.github.io/2026/03/22/%E5%9F%BA%E4%BA%8EOpenCV%E5%92%8CYOLO11%E7%9A%84%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/",
+          title: "深度学习基础-ResNet",
+          url: "https://con-quer.github.io/2026/05/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B62/",
           excerpt: "",
           description: "",
-          stripContent: "该项目基于OpenCV内置的目标检测功能和YOLO的人脸识别功能我将以机器学习的基本的三个环节，分板块执行：get_picture.py——准备数据train.py—————训练模型start.py—————开始识别 获取图片需要导入的库如下： import cv2 import os import tkinter as tk from tkinter import simpledialog import shutil 定义camera：打开摄像头并初始化，分辨率以一般笔记本的标准 1280*7",
-          date: "Sun Mar 22 2026 00:00:00 GMT+0800",
-          updated: "Tue Mar 24 2026 11:19:51 GMT+0800",
+          stripContent: "残差块ResNet使用4个由残差块组成的模块，每个模块使用若干个同样输出通道数的残差块。 第一个模块的通道数同输入通道数一致。 由于之前已经使用了步幅为2的最大汇聚层，所以无须减小高和宽。 之后的每个模块在第一个残差块里将上一个模块的通道数翻倍，并将高和宽减半。 class Residual(nn.Module):       def __init__(self, input_channels, num_channels,                 use_1x1conv=False, s",
+          date: "Fri May 08 2026 00:00:00 GMT+0800",
+          updated: "Fri May 08 2026 21:43:53 GMT+0800",
           cover: "/images/banner.webp",
         };
       </script>
