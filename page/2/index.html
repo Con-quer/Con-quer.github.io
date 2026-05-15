@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">17</div>
+    <div class="sidebar-state-number">18</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -246,8 +246,36 @@ document.addEventListener("DOMContentLoaded", function() {
 
           <section id="main" aria-label="Main content">      <div class="post-wrapper">
   <div class="post-wrap left" data-aos="fade-up">
-      <a class="post-link" href="/2026/04/04/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%801/" aria-label="深度学习基础1" title="深度学习基础1"></a>
+      <a class="post-link" href="/2026/04/04/python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%9B%9E%E9%A1%BE1/" aria-label="Python数据挖掘1" title="Python数据挖掘1"></a>
     <div class="post-cover left">
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="Python数据挖掘1" class="lazyload">
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2026-04-04</span>
+        <span><span class="icon-pencil"></span>750 字</span>
+        <span><span class="icon-clock"></span>4 分钟</span>
+      </div>
+      <h2 class="post-title">Python数据挖掘1</h2>
+      <article class="post-article">
+          KNN算法给定一个新样本，在训练集中找到和它距离最近的 k 个样本
+鸢尾花数据集sklearn提供的现成的数据集，主要用来学习和测试
+代码实现：
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split #数据集分类器
+from sklearn.datasets import load_iris  #鸢尾花数据集
+
+iris=load_iris(
+      </article>
+    </div>
+  </div>
+</div>
+      <div class="post-wrapper">
+  <div class="post-wrap right" data-aos="fade-up">
+      <a class="post-link" href="/2026/04/04/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%801/" aria-label="深度学习基础1" title="深度学习基础1"></a>
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础1" class="lazyload">
     </div>
     <div class="post-info">
@@ -272,9 +300,9 @@ y={01​(w1​x1​+w2​x2​≤θ)(w1​x1​+w2​x2​&amp;gt;θ)​
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
+  <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/2026/04/03/OpenCV%E8%83%8C%E6%99%AF%E5%89%AA%E9%99%A4/" aria-label="OpenCV背景剪除" title="OpenCV背景剪除"></a>
-    <div class="post-cover right">
+    <div class="post-cover left">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV背景剪除" class="lazyload">
     </div>
     <div class="post-info">
@@ -302,9 +330,9 @@ ret, prev_frame
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap left" data-aos="fade-up">
+  <div class="post-wrap right" data-aos="fade-up">
       <a class="post-link" href="/2026/04/01/OpenCV%E5%AE%9E%E6%88%98%E8%BF%90%E7%94%A8%E6%80%BB%E7%BB%93/" aria-label="OpenCV实战回顾" title="OpenCV实战回顾"></a>
-    <div class="post-cover left">
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV实战回顾" class="lazyload">
     </div>
     <div class="post-info">
@@ -328,9 +356,9 @@ hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
+  <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/2026/03/29/OpenCV%E8%BF%90%E7%94%A8%E8%A1%A5%E5%85%85/" aria-label="OpenCV进阶运用补充" title="OpenCV进阶运用补充"></a>
-    <div class="post-cover right">
+    <div class="post-cover left">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV进阶运用补充" class="lazyload">
     </div>
     <div class="post-info">
@@ -354,9 +382,9 @@ edges = cv2.Canny(blur,5
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap left" data-aos="fade-up">
+  <div class="post-wrap right" data-aos="fade-up">
       <a class="post-link" href="/2026/03/24/OpenCV%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%94%A82/" aria-label="OpenCV进阶运用回顾" title="OpenCV进阶运用回顾"></a>
-    <div class="post-cover left">
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV进阶运用回顾" class="lazyload">
     </div>
     <div class="post-info">
@@ -379,9 +407,9 @@ ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY) #固定阈值二�
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap right" data-aos="fade-up">
+  <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/2026/03/22/%E5%9F%BA%E4%BA%8EOpenCV%E5%92%8CYOLO11%E7%9A%84%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" aria-label="基于OpenCV与YOLO11的实时人脸识别项目" title="基于OpenCV与YOLO11的实时人脸识别项目"></a>
-    <div class="post-cover right">
+    <div class="post-cover left">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="基于OpenCV与YOLO11的实时人脸识别项目" class="lazyload">
     </div>
     <div class="post-info">
@@ -408,9 +436,9 @@ def camera():
   </div>
 </div>
       <div class="post-wrapper">
-  <div class="post-wrap left" data-aos="fade-up">
+  <div class="post-wrap right" data-aos="fade-up">
       <a class="post-link" href="/2026/03/20/OpenCV%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%94%A81/" aria-label="OpenCV基础运用回顾" title="OpenCV基础运用回顾"></a>
-    <div class="post-cover left">
+    <div class="post-cover right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="OpenCV基础运用回顾" class="lazyload">
     </div>
     <div class="post-info">
@@ -453,7 +481,7 @@ def camera():
         15.3k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        01:20
+        01:21
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -481,7 +509,7 @@ def camera():
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">17</div>
+    <div class="sidebar-state-number">18</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>

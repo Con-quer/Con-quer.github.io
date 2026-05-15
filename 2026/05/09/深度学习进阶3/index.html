@@ -50,7 +50,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://con-quer.github.io/2026/05/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B63/image.png">
 <meta property="article:published_time" content="2026-05-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-05-12T06:55:42.371Z">
+<meta property="article:modified_time" content="2026-05-15T08:47:02.433Z">
 <meta property="article:author" content="cOnQuer">
 <meta property="article:tag" content="-深度学习">
 <meta name="twitter:card" content="summary">
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">17</div>
+    <div class="sidebar-state-number">18</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="article-date">
   <span class="article-date-link icon-calendar" data-aos="zoom-in">
     <time datetime="2026-05-08T16:00:00.000Z" itemprop="datePublished">2026-05-09</time>
-    <time style="display: none;" id="post-update-time">2026-05-12</time>
+    <time style="display: none;" id="post-update-time">2026-05-15</time>
   </span>
 </div>
 
@@ -276,19 +276,50 @@ document.addEventListener("DOMContentLoaded", function() {
         <p>DenseNet在某种程度上是ResNet的逻辑扩展。</p>
 <h1 id="稠密连接"><a href="#稠密连接" class="headerlink" title="稠密连接"></a>稠密连接</h1><p>任意函数的泰勒展开式，它把这个函数分解成越来越高阶的项。在接近0时：<br><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo><mo>+</mo><msup><mi>f</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo><mi>x</mi><mo>+</mo><mfrac><mrow><msup><mi>f</mi><mrow><mo mathvariant="normal">′</mo><mo mathvariant="normal">′</mo></mrow></msup><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><mrow><mn>2</mn><mo stretchy="false">!</mo></mrow></mfrac><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mfrac><mrow><msup><mi>f</mi><mrow><mo mathvariant="normal">′</mo><mo mathvariant="normal">′</mo><mo mathvariant="normal">′</mo></mrow></msup><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><mrow><mn>3</mn><mo stretchy="false">!</mo></mrow></mfrac><msup><mi>x</mi><mn>3</mn></msup><mo>+</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">f(x)=f(0)+f&#x27;(0)x+\frac{f&#x27;&#x27;(0)}{2!}x^2+\frac{f&#x27;&#x27;&#x27;(0)}{3!}x^3+....</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0519em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.1149em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4289em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mclose">!</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.1149em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4289em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span><span class="mclose">!</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.1056em;"></span><span class="mord">....</span></span></span></span></span><br>ResNet的展开为两部分：一个简单的线性项和一个复杂的非线性项：<br><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi><mo>+</mo><mi>g</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(x) = x + g(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">g</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span>!<br><img src="/2026/05/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B63/image.png" class="" title="ResNet（左）与DenseNet（右）"></p>
 <h1 id="稠密层和过渡层"><a href="#稠密层和过渡层" class="headerlink" title="稠密层和过渡层"></a>稠密层和过渡层</h1><p>每一次卷积进行一次非线性的同时保留线性传播<br>用过渡层抑制不断增大的维度</p>
-<p>  def conv_block(input_channels, num_channels):<br>      return nn.Sequential(nn.BatchNorm2d(input_channels),nn.ReLU(),<br>                          nn.Conv2d(input_channels,num_channels,kernel_size=3,padding=1))</p>
-<p>  class DenseBlock(nn.Module):<br>      def <strong>init</strong>(self, num<em>convs, input<em>channels, num_channels):<br>          super().__init</em></em>()<br>          layer = []<br>          for i in range(num_convs):<br>              layer.append(conv_block(num_channels<em>i +input_channels,num_channels))<br>          self.net = nn.Sequential(</em>layer)</p>
-<pre><code>  def forward(self, X):
-      for blk in self.net:
-          Y = blk(X)
-          X = torch.cat((X, Y), dim=1)
-      return X
-</code></pre><p>  def transition_block(input_channels, num_channels):<br>      return nn.Sequential(nn.BatchNorm2d(input_channels),nn.ReLU(),<br>                          nn.Conv2d(input_channels, num_channels, kernel_size=1),<br>                          nn.AvgPool2d(kernel_size=2,stride=2))</p>
-<h1 id="DenseNet"><a href="#DenseNet" class="headerlink" title="DenseNet"></a>DenseNet</h1><p>growth_rate为增长率，控制原始数据的线性传播数量</p>
-<p>  b1 = nn.Sequential(nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1),<br>                    nn.BatchNorm2d(64), nn.ReLU(),<br>                    nn.MaxPool2d(kernel_size=3, stride=2, padding=1)<br>                    )</p>
-<p>  num_channels, growth_rate = 64, 32<br>  num_convs_in_dense_blocks = [6,8,8,6]<br>  blks = []<br>  for i, num_convs in enumerate(num_convs_in_dense_blocks):<br>      blks.append(DenseBlock(num_convs, num_channels, growth_rate))<br>      num_channels += num_convs * growth_rate<br>      if i != len(num_convs_in_dense_blocks)-1:<br>          blks.append(transition_block(num_channels, num_channels // 2))<br>          num_channels = num_channels // 2</p>
-<p>  net = nn.Sequential(b1, *blks,<br>                      nn.BatchNorm2d(num_channels),nn.ReLU(),<br>                      nn.AdaptiveAvgPool2d((1,1)),<br>                      nn.Flatten(),<br>                      nn.Linear(num_channels,10))</p>
+<pre><code>def conv_block(input_channels, num_channels):
+    return nn.Sequential(nn.BatchNorm2d(input_channels),nn.ReLU(),
+                        nn.Conv2d(input_channels,num_channels,kernel_size=3,padding=1))
 
+class DenseBlock(nn.Module):
+    def __init__(self, num_convs, input_channels, num_channels):
+        super().__init__()
+        layer = []
+        for i in range(num_convs):
+            layer.append(conv_block(num_channels*i +input_channels,num_channels))
+        self.net = nn.Sequential(*layer)
+
+    def forward(self, X):
+        for blk in self.net:
+            Y = blk(X)
+            X = torch.cat((X, Y), dim=1)
+        return X
+
+def transition_block(input_channels, num_channels):
+    return nn.Sequential(nn.BatchNorm2d(input_channels),nn.ReLU(),
+                        nn.Conv2d(input_channels, num_channels, kernel_size=1),
+                        nn.AvgPool2d(kernel_size=2,stride=2))
+</code></pre><h1 id="DenseNet"><a href="#DenseNet" class="headerlink" title="DenseNet"></a>DenseNet</h1><p>growth_rate为增长率，控制原始数据的线性传播数量</p>
+<pre><code>b1 = nn.Sequential(nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1),
+                    nn.BatchNorm2d(64), nn.ReLU(),
+                    nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+                    )
+
+num_channels, growth_rate = 64, 32
+num_convs_in_dense_blocks = [6,8,8,6]
+blks = []
+for i, num_convs in enumerate(num_convs_in_dense_blocks):
+    blks.append(DenseBlock(num_convs, num_channels, growth_rate))
+    num_channels += num_convs * growth_rate
+    if i != len(num_convs_in_dense_blocks)-1:
+        blks.append(transition_block(num_channels, num_channels // 2))
+        num_channels = num_channels // 2
+
+net = nn.Sequential(b1, *blks,
+                    nn.BatchNorm2d(num_channels),nn.ReLU(),
+                    nn.AdaptiveAvgPool2d((1,1)),
+                    nn.Flatten(),
+                    nn.Linear(num_channels,10))
+</code></pre>
     </div>
     <footer class="article-footer">
         <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E5%9B%9E%E9%A1%BE/" title="学习回顾" data-aos="zoom-in">学习回顾</a>
@@ -298,6 +329,14 @@ document.addEventListener("DOMContentLoaded", function() {
     </footer>
   </div>
     <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
+      <div class="article-nav-link-wrap left">
+            <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-深入自然语言" class="lazyload">
+        <a href="/2026/05/15/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B64/" aria-label="前一篇: 深度学习基础-深入自然语言" title="前一篇: 深度学习基础-深入自然语言"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+            深度学习基础-深入自然语言
+        </h3>
+      </div>
     <div class="article-nav-link-wrap right">
           <img data-src="/images/banner.webp" data-sizes="auto" alt="深度学习基础-ResNet" class="lazyload">
       <a href="/2026/05/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B62/" aria-label="后一篇: 深度学习基础-ResNet"  title="后一篇: 深度学习基础-ResNet"></a>
@@ -333,7 +372,7 @@ document.addEventListener("DOMContentLoaded", function() {
         15.3k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        01:20
+        01:21
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -366,7 +405,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">17</div>
+    <div class="sidebar-state-number">18</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -483,7 +522,7 @@ document.addEventListener("DOMContentLoaded", function() {
           description: "",
           stripContent: "DenseNet在某种程度上是ResNet的逻辑扩展。 稠密连接任意函数的泰勒展开式，它把这个函数分解成越来越高阶的项。在接近0时：f(x)=f(0)+f′(0)x+f′′(0)2!x2+f′′′(0)3!x3+....f(x)=f(0)+f&amp;#x27;(0)x+\frac{f&amp;#x27;&amp;#x27;(0)}{2!}x^2+\frac{f&amp;#x27;&amp;#x27;&amp;#x27;(0)}{3!}x^3+....f(x)=f(0)+f′(0)x+2!f′′(0)​x2+3!f′′′(0)​x3+....",
           date: "Sat May 09 2026 00:00:00 GMT+0800",
-          updated: "Tue May 12 2026 14:55:42 GMT+0800",
+          updated: "Fri May 15 2026 16:47:02 GMT+0800",
           cover: "/images/banner.webp",
         };
       </script>
